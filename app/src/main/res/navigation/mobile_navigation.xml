@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_hauptgerichte">
+
+    <fragment
+        android:id="@+id/navigation_hauptgerichte"
+        android:name="com.example.rezepte.ui.hauptgerichte.HauptgerichteFragment"
+        android:label="@string/title_hauptgerichte"
+        tools:layout="@layout/fragment_hauptgerichte" />
+
+    <fragment
+        android:id="@+id/navigation_salate"
+        android:name="com.example.rezepte.ui.salate.SalateFragment"
+        android:label="@string/title_salate"
+        tools:layout="@layout/fragment_salate" />
+
+    <fragment
+        android:id="@+id/navigation_soßen"
+        android:name="com.example.rezepte.ui.soßen.SoßenFragment"
+        android:label="@string/title_soßen"
+        tools:layout="@layout/fragment_sossen" />
+
+    <fragment
+        android:id="@+id/navigation_brot"
+        android:name="com.example.rezepte.ui.brot.BrotFragment"
+        android:label="@string/title_brot"
+        tools:layout="@layout/fragment_brot" />
+</navigation>

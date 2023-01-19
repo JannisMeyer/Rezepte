@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Rezepte</string>
+    <string name="title_hauptgerichte">Hauptgerichte</string>
+    <string name="title_salate">Salate</string>
+    <string name="title_soßen">Soßen</string>
+    <string name="title_brot">Brot</string>
+</resources>
