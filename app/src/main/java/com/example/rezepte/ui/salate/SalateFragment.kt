@@ -22,14 +22,14 @@ class SalateFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
+        val salateViewModel =
             ViewModelProvider(this).get(SalateViewModel::class.java)
 
         _binding = FragmentSalateBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textSalate
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
+        salateViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

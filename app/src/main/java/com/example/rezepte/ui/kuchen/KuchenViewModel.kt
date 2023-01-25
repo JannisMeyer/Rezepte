@@ -1,13 +1,13 @@
-package com.example.rezepte.ui.soßen
+package com.example.rezepte.ui.kuchen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SoßenViewModel : ViewModel() {
+class KuchenViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "Soßen"
+        value = "Kuchen"
     }
     val text: LiveData<String> = _text
 }

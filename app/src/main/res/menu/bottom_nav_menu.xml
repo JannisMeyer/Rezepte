@@ -5,19 +5,21 @@
         android:id="@+id/navigation_hauptgerichte"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_hauptgerichte" />
-
     <item
         android:id="@+id/navigation_salate"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_salate" />
-
-    <item
-        android:id="@+id/navigation_soßen"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_soßen" />
     <item
         android:id="@+id/navigation_brot"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_brot" />
+    <item
+        android:id="@+id/navigation_zusaetze"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_zusaetze" />
+    <item
+        android:id="@+id/navigation_kuchen"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_kuchen" />
 
 </menu>

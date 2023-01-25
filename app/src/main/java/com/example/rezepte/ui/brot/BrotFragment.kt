@@ -22,14 +22,14 @@ class BrotFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
+        val brotViewModel =
             ViewModelProvider(this).get(BrotViewModel::class.java)
 
         _binding = FragmentBrotBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textBrot
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        brotViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
