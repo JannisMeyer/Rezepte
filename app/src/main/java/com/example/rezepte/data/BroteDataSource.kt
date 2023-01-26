@@ -21,11 +21,11 @@ class BroteDataSource(resources: Resources) {
     }
 
     companion object {
-        private var INSTANCE: DataSource? = null
+        private var INSTANCE: BroteDataSource? = null
 
-        fun getDataSource(resources: Resources): DataSource {
-            return synchronized(DataSource::class) {
-                val newInstance = INSTANCE ?: DataSource(resources)
+        fun getDataSource(resources: Resources): BroteDataSource {
+            return synchronized(BroteDataSource::class) {
+                val newInstance = INSTANCE ?: BroteDataSource(resources)
                 INSTANCE = newInstance
                 newInstance
             }

@@ -4,6 +4,6 @@ import androidx.annotation.DrawableRes
 data class Rezept (
     val id: Long,
     val Titel: String,
-    val Zutaten: List<String>,
+    val Zutaten: String,
     val Beschreibung: String
 )

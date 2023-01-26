@@ -5,4 +5,7 @@
     <string name="title_brot">Brot</string>
     <string name="title_zusaetze">Zusätze</string>
     <string name="title_kuchen">Kuchen</string>
+    <string name="rezeptInitial">Rezept</string>
+    <string name="zutatenInitial">Zutat1\nZutat2\nZutat3</string>
+    <string name="beschreibungInitial">blablabla</string>
 </resources>
