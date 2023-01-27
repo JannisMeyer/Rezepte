@@ -20,11 +20,11 @@ class ZusaetzeDataSource(resources: Resources) {
     }
 
     companion object {
-        private var INSTANCE: DataSource? = null
+        private var INSTANCE: ZusaetzeDataSource? = null
 
-        fun getDataSource(resources: Resources): DataSource {
-            return synchronized(DataSource::class) {
-                val newInstance = INSTANCE ?: DataSource(resources)
+        fun getDataSource(resources: Resources): ZusaetzeDataSource {
+            return synchronized(ZusaetzeDataSource::class) {
+                val newInstance = INSTANCE ?: ZusaetzeDataSource(resources)
                 INSTANCE = newInstance
                 newInstance
             }

@@ -21,11 +21,11 @@ class SalateDataSource(resources: Resources) {
     }
 
     companion object {
-        private var INSTANCE: DataSource? = null
+        private var INSTANCE: SalateDataSource? = null
 
-        fun getDataSource(resources: Resources): DataSource {
-            return synchronized(DataSource::class) {
-                val newInstance = INSTANCE ?: DataSource(resources)
+        fun getDataSource(resources: Resources): SalateDataSource {
+            return synchronized(SalateDataSource::class) {
+                val newInstance = INSTANCE ?: SalateDataSource(resources)
                 INSTANCE = newInstance
                 newInstance
             }

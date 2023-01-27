@@ -7,7 +7,7 @@ fun kuchenList(resources: Resources): List<Rezept> {
         Rezept(
             id = 1,
             Titel = "Apfelkuchen",
-            Zutaten = listOf("6-8 Äpfel", "100g Zucker", "250g Mehl", "1 Pck. Backpulver", "Prise Salz", "1TL Zimt", "100g geschmolzene Butter", "125ml Milch", "50g Mandeln", "2EL Zucker", "2EL Wasser"),
+            Zutaten = "6-8 Äpfel\n100g Zucker\n250g Mehl\n1 Pck. Backpulver\nPrise Salz\n1TL Zimt\n100g geschmolzene Butter\n125ml Milch\n50g Mandeln\n2EL Zucker\n2EL Wasser",
             Beschreibung = "..."
         )
     )

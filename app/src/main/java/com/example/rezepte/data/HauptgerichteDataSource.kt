@@ -4,7 +4,7 @@ import android.content.res.Resources
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-/* Handles operations on flowersLiveData and holds details about it. */
+/* Handles operations on rezepteLiveData and holds details about it. */
 class HauptgerichteDataSource(resources: Resources) {
     private val initialHauptgerichteList = hauptgerichteList(resources)
     private val hauptgerichteLiveData = MutableLiveData(initialHauptgerichteList)
@@ -21,11 +21,11 @@ class HauptgerichteDataSource(resources: Resources) {
     }
 
     companion object {
-        private var INSTANCE: DataSource? = null
+        private var INSTANCE: HauptgerichteDataSource? = null
 
-        fun getDataSource(resources: Resources): DataSource {
-            return synchronized(DataSource::class) {
-                val newInstance = INSTANCE ?: DataSource(resources)
+        fun getDataSource(resources: Resources): HauptgerichteDataSource {
+            return synchronized(HauptgerichteDataSource::class) {
+                val newInstance = INSTANCE ?: HauptgerichteDataSource(resources)
                 INSTANCE = newInstance
                 newInstance
             }

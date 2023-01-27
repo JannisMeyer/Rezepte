@@ -20,11 +20,11 @@ class KuchenDataSource(resources: Resources) {
     }
 
     companion object {
-        private var INSTANCE: DataSource? = null
+        private var INSTANCE: KuchenDataSource? = null
 
-        fun getDataSource(resources: Resources): DataSource {
-            return synchronized(DataSource::class) {
-                val newInstance = INSTANCE ?: DataSource(resources)
+        fun getDataSource(resources: Resources): KuchenDataSource {
+            return synchronized(KuchenDataSource::class) {
+                val newInstance = INSTANCE ?: KuchenDataSource(resources)
                 INSTANCE = newInstance
                 newInstance
             }

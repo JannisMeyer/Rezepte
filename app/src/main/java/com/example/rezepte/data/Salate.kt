@@ -7,7 +7,7 @@ fun salateList(resources: Resources): List<Rezept> {
         Rezept(
             id = 1,
             Titel = "Kartoffelsalat",
-            Zutaten = listOf("2kg Kartoffeln", "100ml Hühnerbrühe", "2TL Salz", "3EL Essig", "1TL Pfeffer", "evtl. weiteres Gemüse"),
+            Zutaten = "2kg Kartoffeln\n100ml Hühnerbrühe\n2TL Salz\n3EL Essig\n1TL Pfeffer\nevtl. weiteres Gemüse",
             Beschreibung = "..."
         )
     )

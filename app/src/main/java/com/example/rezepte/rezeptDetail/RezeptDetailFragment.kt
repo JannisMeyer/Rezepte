@@ -5,11 +5,11 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rezepte.R
-import com.example.rezepte.broteList.BROT_ID
+import com.example.rezepte.broteList.REZEPT_ID
 
-class FlowerDetailActivity : AppCompatActivity() {
+class RezeptDetailFragment : AppCompatActivity() {
 
-    private val rezeptDetailViewModel by viewModels<RezeptDetailViewModel> {
+    private val RezeptDetailViewModel by viewModels<RezeptDetailViewModel> {
         RezeptDetailViewModelFactory(this)
     }
 
@@ -26,12 +26,12 @@ class FlowerDetailActivity : AppCompatActivity() {
 
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            currentRezeptId = bundle.getLong(BROT_ID)
+            currentRezeptId = bundle.getLong(REZEPT_ID)
         }
 
         /* If currentRezeptId is not null, get corresponding rezept and set values */
         currentRezeptId?.let {
-            val currentRezept = rezeptDetailViewModel.getBrotForId(it)
+            val currentRezept = RezeptDetailViewModel.getRezeptForId(it)
             rezeptTitel.text = currentRezept?.Titel
             rezeptZutaten.text = currentRezept?.Zutaten
             rezeptBeschreibung.text = currentRezept?.Beschreibung

@@ -7,7 +7,7 @@ fun hauptgerichteList(resources: Resources): List<Rezept> {
         Rezept(
             id = 1,
             Titel = "Chicken Tikka Masala",
-            Zutaten = listOf("2 Zwiebeln", "2 Knoblauchzehen", "800g Huhn", "2EL Olivenöl", "1TL Salz", "1TL Pfeffer", "400g pürierte Dosentomaten", "250g Joghurt/200ml Sahne", "1TL Paprika", "1TL Curry", "0,5TL Chili", "0,5TL Kurkuma", "0,5TL Ingwerpulver/1cm geriebener Ingwer", "Prise Zimt"),
+            Zutaten = "2 Zwiebeln\n2 Knoblauchzehen\n800g Huhn\n2EL Olivenöl\n1TL Salz\n1TL Pfeffer\n400g pürierte Dosentomaten\n250g Joghurt/200ml Sahne\n1TL Paprika\n1TL Curry\n0,5TL Chili\n0,5TL Kurkuma\n0,5TL Ingwerpulver/1cm geriebener Ingwer\nPrise Zimt",
             Beschreibung = "..."
         )
     )

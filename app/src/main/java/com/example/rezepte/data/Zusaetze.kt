@@ -7,7 +7,7 @@ fun zusaetzeList(resources: Resources): List<Rezept> {
         Rezept(
             id = 1,
             Titel = "Apfelmus",
-            Zutaten = listOf("2kg Äpfel", "250ml Wasser", "2EL Zucker", "1EL Zitronensaft", "Prise Zimt"),
+            Zutaten = "2kg Äpfel\n250ml Wasser\n2EL Zucker\n1EL Zitronensaft\nPrise Zimt",
             Beschreibung = "..."
         )
     )
