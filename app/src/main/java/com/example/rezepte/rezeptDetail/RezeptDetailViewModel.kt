@@ -1,4 +1,4 @@
-package com.example.rezepte.rezeptDetail
+/*package com.example.rezepte.rezeptDetail
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -25,4 +25,4 @@ class RezeptDetailViewModelFactory(private val context: Context) : ViewModelProv
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/

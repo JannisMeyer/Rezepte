@@ -1,4 +1,4 @@
-package com.example.rezepte.data
+/*package com.example.rezepte.data
 
 import android.content.res.Resources
 import androidx.lifecycle.LiveData
@@ -31,4 +31,4 @@ class BroteDataSource(resources: Resources) {
             }
         }
     }
-}
+}*/

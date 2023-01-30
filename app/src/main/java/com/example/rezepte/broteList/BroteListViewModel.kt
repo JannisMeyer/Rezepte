@@ -1,4 +1,4 @@
-package com.example.rezepte.broteList
+/*package com.example.rezepte.broteList
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -23,4 +23,4 @@ class BroteListViewModelFactory(private val context: Context) : ViewModelProvide
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
-}
+}*/

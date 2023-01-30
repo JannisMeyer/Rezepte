@@ -1,4 +1,4 @@
-package com.example.rezepte.rezeptDetail
+/*package com.example.rezepte.rezeptDetail
 
 import android.os.Bundle
 import android.widget.TextView
@@ -38,4 +38,4 @@ class RezeptDetailFragment : AppCompatActivity() {
         }
 
     }
-}
+}*/

@@ -5,50 +5,29 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rezepte.rezeptDetail.RezeptDetailFragment
+//import com.example.rezepte.rezeptDetail.RezeptDetailFragment
 import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
 
 const val REZEPT_ID = "rezept id"
 
 class BroteListFragment : AppCompatActivity() {
-    private val newBroteFragmentRequestCode = 1
-    private val broteListViewModel by viewModels<BroteListViewModel> {
-        BroteListViewModelFactory(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.rezept_detail_fragment)
 
-        /* Instantiates headerAdapter and flowersAdapter. Both adapters are added to concatAdapter.
-        which displays the contents sequentially */
-        val headerAdapter = BroteHeaderAdapter()
-        val broteAdapter = BroteAdapter { rezept -> adapterOnClick(rezept) }
-        val concatAdapter = ConcatAdapter(headerAdapter, broteAdapter)
+        val extras = getIntent().extras
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.adapter = concatAdapter
+        val recipe_titel_view: TextView = findViewById(R.id.rezept_detail_titel)
+        val recipe_zutaten_view: TextView = findViewById(R.id.rezept_detail_zutaten)
+        val recipe_beschreibung_view: TextView = findViewById(R.id.rezept_detail_beschreibung)
 
-        broteListViewModel.rezepteLiveData.observe(this, {
-            it?.let {
-                broteAdapter.submitList(it as MutableList<Rezept>)
-                headerAdapter.updateRezepteCount(it.size)
-            }
-        })
-    }
-
-    /* Opens FlowerDetailActivity when RecyclerView item is clicked. */
-    private fun adapterOnClick(rezept: Rezept) {
-        val intent = Intent(this, RezeptDetailFragment()::class.java)
-        intent.putExtra(REZEPT_ID, rezept.id)
-        startActivity(intent)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
+        recipe_titel_view.text = extras?.getString("TITEL")
+        recipe_zutaten_view.text = extras?.getString("ZUTATEN")
+        recipe_beschreibung_view.text = extras?.getString("BESCHR")
     }
 }
