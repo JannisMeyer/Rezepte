@@ -1,41 +1,31 @@
-/*package com.example.rezepte.rezeptDetail
+package com.example.rezepte.rezeptDetail
 
+import android.app.Activity
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.RecyclerView
+//import com.example.rezepte.rezeptDetail.RezeptDetailFragment
 import com.example.rezepte.R
-import com.example.rezepte.broteList.REZEPT_ID
+import com.example.rezepte.data.Rezept
 
 class RezeptDetailFragment : AppCompatActivity() {
-
-    private val RezeptDetailViewModel by viewModels<RezeptDetailViewModel> {
-        RezeptDetailViewModelFactory(this)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rezept_detail_fragment)
 
-        var currentRezeptId: Long? = null
+        val extras = getIntent().extras
 
-        /* Connect variables to UI elements. */
-        val rezeptTitel: TextView = findViewById(R.id.rezept_detail_titel)
-        val rezeptZutaten: TextView = findViewById(R.id.rezept_detail_zutaten)
-        val rezeptBeschreibung: TextView = findViewById(R.id.rezept_detail_beschreibung)
+        val recipe_titel_view: TextView = findViewById(R.id.rezept_detail_titel)
+        val recipe_zutaten_view: TextView = findViewById(R.id.rezept_detail_zutaten)
+        val recipe_beschreibung_view: TextView = findViewById(R.id.rezept_detail_beschreibung)
 
-        val bundle: Bundle? = intent.extras
-        if (bundle != null) {
-            currentRezeptId = bundle.getLong(REZEPT_ID)
-        }
-
-        /* If currentRezeptId is not null, get corresponding rezept and set values */
-        currentRezeptId?.let {
-            val currentRezept = RezeptDetailViewModel.getRezeptForId(it)
-            rezeptTitel.text = currentRezept?.Titel
-            rezeptZutaten.text = currentRezept?.Zutaten
-            rezeptBeschreibung.text = currentRezept?.Beschreibung
-        }
-
+        recipe_titel_view.text = extras?.getString("TITEL")
+        recipe_zutaten_view.text = extras?.getString("ZUTATEN")
+        recipe_beschreibung_view.text = extras?.getString("BESCHR")
     }
-}*/
+}

@@ -1,4 +1,4 @@
-package com.example.rezepte.broteList
+package com.example.rezepte.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -8,16 +8,12 @@ import com.example.rezepte.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
-import com.example.rezepte.ui.brot.BrotFragment
+import com.example.rezepte.rezeptDetail.RezeptDetailFragment
 
-class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteAdapter.ViewHolder>() {
+class SalateAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<SalateAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -45,13 +41,11 @@ class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteA
         }
 
         override fun onClick(v: View?) {
-            val intent: Intent = Intent(context, BrotFragment::class.java)
+            val intent: Intent = Intent(context, RezeptDetailFragment::class.java)
             var rezept_id: Long = data[adapterPosition].id
             var rezept_titel: String = data[adapterPosition].Titel
             var rezept_zutaten: String = data[adapterPosition].Zutaten
             var rezept_beschreibung: String = data[adapterPosition].Beschreibung
-
-            var passedRezept: Rezept = Rezept(rezept_id, rezept_titel, rezept_zutaten, rezept_beschreibung)
 
             val extras = Bundle().apply {
                 putString("ID", rezept_id.toString())

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".rezeptDetail.RezeptDetailFragment">
 
     <TextView
         android:id="@+id/rezept_detail_titel"
@@ -12,7 +14,7 @@
         android:paddingBottom="24dp"
         android:text="@string/rezeptInitial"
         android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceHeadline3" />
+        android:textAppearance="?attr/textAppearanceHeadline5" />
 
     <TextView
         android:id="@+id/rezept_detail_zutaten"
