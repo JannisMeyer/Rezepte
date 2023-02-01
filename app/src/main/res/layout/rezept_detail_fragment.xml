@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".rezeptDetail.RezeptDetailFragment">
-
-    <TextView
-        android:id="@+id/rezept_detail_titel"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
-        android:text="@string/rezeptInitial"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceHeadline5" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".rezeptDetail.RezeptDetailFragment">
 
-    <TextView
-        android:id="@+id/rezept_detail_zutaten"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/zutatenInitial" />
+        <TextView
+            android:id="@+id/rezept_detail_titel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:text="@string/rezeptInitial"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline5" />
 
-    <TextView
-        android:id="@+id/rezept_detail_beschreibung"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="@string/beschreibungInitial" />
+        <TextView
+            android:id="@+id/rezept_detail_zutaten"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/zutatenInitial"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="5sp"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/rezept_detail_beschreibung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:padding="16dp"
+            android:text="@string/beschreibungInitial"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="10sp"/>
+
+    </LinearLayout>
+</ScrollView>
