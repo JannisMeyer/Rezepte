@@ -6,11 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.rezepte.databinding.ActivityMainBinding
 import com.example.rezepte.ui.brot.BrotFragment
 import com.example.rezepte.ui.hauptgerichte.HauptgerichteFragment
 import com.example.rezepte.ui.kuchen.KuchenFragment
@@ -44,12 +39,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        if (fragment != null) {
-            val fragManager: FragmentManager = supportFragmentManager
-            val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
-            fragTransaction.replace(R.id.main_container, fragment)
-            //fragTransaction.addToBackStack(null)
-            fragTransaction.commit()
-        }
+        val fragManager: FragmentManager = supportFragmentManager
+        val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
+        fragTransaction.replace(R.id.main_container, fragment)
+        fragTransaction.commit()
     }
 }

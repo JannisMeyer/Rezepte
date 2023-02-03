@@ -8,4 +8,9 @@
     <string name="rezeptInitial">Rezept</string>
     <string name="zutatenInitial">Zutat1\nZutat2\nZutat3</string>
     <string name="beschreibungInitial">blablabla</string>
+    <string name="topbarBrote">Brot und Co.</string>
+    <string name="topbarHauptgerichte">Hauptgerichte</string>
+    <string name="topbarKuchen">Kuchen und Kekse</string>
+    <string name="topbarZusaetze">Zusätze</string>
+    <string name="topbarSalate">Salate</string>
 </resources>
