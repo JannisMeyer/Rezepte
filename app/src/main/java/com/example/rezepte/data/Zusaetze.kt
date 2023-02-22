@@ -43,6 +43,14 @@ fun zusaetzeList(resources: Resources): List<Rezept> {
                     "1TL Pfeffer\n" +
                     "1TL Paprikapulver",
             Beschreibung = "Alles mischen, für ca. 1kg Huhn"
-        )
+        ),
+        Rezept(
+            id = 5,
+            Titel = "Reis",
+            Zutaten = "1,75 Teile Wasser (Gewicht)\n" +
+                    "Salz\n" +
+                    "1 Teil Reis (Gewicht)",
+            Beschreibung = "Wasser mit Salz aufkochen, Reis dazu und einmal umrühren, Deckel drauf und bei niedriger Hitze (Stufe 4 von 9) ca. 25 Minuten köcheln lassen, mit Gabel umrühren, kurz abdampfen lassen"
+        ),
     )
 }

@@ -282,25 +282,6 @@ fun kuchenList(resources: Resources): List<Rezept> {
         ),
         Rezept(
             id = 19,
-            Titel = "Schoko-Gugelhupf",
-            Zutaten = "100g Zartbitterschokolade\n" +
-                    "225g Butter \n" +
-                    "5 Eier\n" +
-                    "225g Zucker\n" +
-                    "1 Prise Salz\n" +
-                    "350g Mehl \n" +
-                    "40g Kakaopulver\n" +
-                    "1 Päckchen Backpulver\n" +
-                    "100ml Milch\n" +
-                    "100g Schokostreusel o.Ä.\n" +
-                    "\n" +
-                    "75g Zartbitterschokolade\n" +
-                    "200g Schlagsahne\n" +
-                    "20g Kokosfett",
-            Beschreibung = "Zartbitterschokolade und Butter zusammen schmelzen, Eier, Zucker und Salz verrühren, Schokomischung und Milch unterrühren, Mehl, Backpulver und Kakaopulver vermischen und einrühren, Schokostreusel unterrühren, Kuchen im vorgeheizten Ofen bei 175 Grad Umluft ca. 50 Minuten backen, Zartbitterschokolade, Schlagsahne und Kokosfett schmelzen, auf Kuchen geben, abkühlen lassen"
-        ),
-        Rezept(
-            id = 20,
             Titel = "Schokokuchen",
             Zutaten = "5 Eier\n" +
                     "200g Zucker\n" +
@@ -313,7 +294,7 @@ fun kuchenList(resources: Resources): List<Rezept> {
             Beschreibung = "Eier, Zucker, Vanillezucker und Salz cremig rühren, Mehl, Kakaopulver und Backpulver mischen und unterrühren, Öl einrühren, Kuchen im vorgeheizten Ofen bei 170 Grad Umluft ca. 45 Minuten backen, abkühlen lassen"
         ),
         Rezept(
-            id = 21,
+            id = 20,
             Titel = "Schokoladen-Muffins",
             Zutaten = "70g weiche Butter\n" +
                     "190g Zucker\n" +
@@ -329,7 +310,7 @@ fun kuchenList(resources: Resources): List<Rezept> {
             Beschreibung = "Butter, Zucker, Vanillezucker und Ei verrühren, Milch und Essig verrühren und unter Buttermischung rühren, Mehl, Backpulver, Salz, Kakaopulver und Schokostreusel vermischen und in Buttermischung einrühren, Teig in Muffin-Formen geben und im vorgeheizten Ofen bei 150 Grad Umluft ca. 25 Minuten backen"
         ),
         Rezept(
-            id = 22,
+            id = 21,
             Titel = "Zimtschnecken",
             Zutaten = "550g Mehl\n" +
                     "65g Zucker\n" +
@@ -346,7 +327,7 @@ fun kuchenList(resources: Resources): List<Rezept> {
             Beschreibung = "Mehl, Zucker, Salz und Hefe vermischen, Milch lauwarm machen und mit Ei und Butter in Mehlmischung einarbeiten, Teig gut durchkneten, ca. zwei Stunden gehen lassen, Teig ausrollen, mit Butter bestreichen, Zucker und Zimt mischen und auf Teig verteilen (Nutella drauf verstreichen), zu Rolle formen und Schnecken abschneiden (ca. 3cm breit), Schnecken in geölter Auflaufform legen, nochmal an warmen Ort ca. 30 Minuten gehen lassen, Schnecken im vorgeheizten Ofen bei 170 Grad ca. 20 Minuten backen (bis sie oben goldbraun sind), abkühlen lassen und mit Puderzucker oder Zuckerguss überziehen"
         ),
         Rezept(
-            id = 23,
+            id = 22,
             Titel = "Zitronenkuchen",
             Zutaten = "180g Zucker \n" +
                     "1 Pck. Vanillezucker\n" +
@@ -363,7 +344,7 @@ fun kuchenList(resources: Resources): List<Rezept> {
             Beschreibung = "Zucker, Vanillezucker und Ei cremig rühren, Mehl, Backpulver und Salz in zweiter Schüssel vermischen, Mehlmischung, Zitronenschale, Aroma, Zitronensaft und Sahne mit Eimischung verrühren, im vorgeheizten Ofen bei 170 Grad Umluft ca. 40 Minuten backen (am besten in Kastenform), abkühlen lassen, derweil Puderzucker mit Zitronensaft glatt rühren, auf Kuchen verstreichen, vollständig abkühlen lassen"
         ),
         Rezept(
-            id = 24,
+            id = 23,
             Titel = "Zwetschgen-Datschi",
             Zutaten = "350g Mehl \n" +
                     "50g Zucker\n" +
