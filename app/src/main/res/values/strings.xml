@@ -16,4 +16,9 @@
     <string name="deletebutton">Löschen</string>
     <string name="editbutton">Bearbeiten</string>
     <string name="addbutton">+</string>
+    <string name="addRecipe">Rezept hinzufügen</string>
+    <string name="recipeTitleEdit">Titel</string>
+    <string name="recipeIngredientsEdit">Zutaten (bitte mit "\\n" getrennt eingeben!)</string>
+    <string name="recipeDescriptionEdit">Beschreibung</string>
+    <string name="doneButtonText">Fertig</string>
 </resources>

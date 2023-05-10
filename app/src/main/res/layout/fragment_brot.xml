@@ -28,13 +28,16 @@
         app:layout_constraintTop_toBottomOf="@id/text_brot"
         tools:layout_editor_absoluteX="8dp" />
 
-    <ImageButton
+    <Button
         android:id="@+id/add_button"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:text="@string/addbutton"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:padding="0sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
