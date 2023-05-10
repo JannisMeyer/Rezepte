@@ -15,4 +15,5 @@
     <string name="topbarSalate">Salate</string>
     <string name="deletebutton">Löschen</string>
     <string name="editbutton">Bearbeiten</string>
+    <string name="addbutton">+</string>
 </resources>
