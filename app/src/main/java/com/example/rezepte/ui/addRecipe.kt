@@ -29,12 +29,14 @@ class AddRecipeActivity : AppCompatActivity() {
         addRecipeTitle = findViewById(R.id.add_recipe_title)
         addRecipeIngredients = findViewById(R.id.add_recipe_ingredients)
         addRecipeDescription = findViewById(R.id.add_recipe_description)
+        TODO("implement view binding")
     }
 
     private fun addRecipe() {
         val resultIntent = Intent()
 
         if (addRecipeTitle.text.isNullOrEmpty() || addRecipeIngredients.text.isNullOrEmpty() || addRecipeDescription.text.isNullOrEmpty()) {
+            Toast.makeText(this, "Invalid Input!", Toast.LENGTH_SHORT).show()
             setResult(Activity.RESULT_CANCELED, resultIntent)
         } else {
             val title = addRecipeTitle.text.toString()

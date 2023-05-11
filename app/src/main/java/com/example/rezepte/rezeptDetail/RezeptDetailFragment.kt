@@ -12,13 +12,26 @@ import androidx.recyclerview.widget.RecyclerView
 //import com.example.rezepte.rezeptDetail.RezeptDetailFragment
 import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
+import com.example.rezepte.databinding.RezeptDetailFragmentBinding
 
 class RezeptDetailFragment : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.rezept_detail_fragment)
 
-        val extras = getIntent().extras
+    private lateinit var binding: RezeptDetailFragmentBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        binding = RezeptDetailFragmentBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.deleteButton.setOnClickListener {
+            TODO("add functionality")
+        }
+
+        binding.editButton.setOnClickListener {
+            TODO("add functionality")
+        }
+
+        val extras = intent.extras
 
         val recipe_titel_view: TextView = findViewById(R.id.rezept_detail_titel)
         val recipe_zutaten_view: TextView = findViewById(R.id.rezept_detail_zutaten)

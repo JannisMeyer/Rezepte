@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.R
 import com.example.rezepte.adapters.HauptgerichteAdapter
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.data.Rezepte
-import com.example.rezepte.data.getHauptgerichteList
+import com.example.rezepte.data.Rezepte.Companion.hauptgerichteListe
 import com.example.rezepte.databinding.FragmentHauptgerichteBinding
 import com.example.rezepte.ui.AddRecipeActivity
 import com.example.rezepte.ui.RECIPE_DESCRIPTION
@@ -28,17 +29,15 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
     private val newRecipeActivityRequestCode = 1
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHauptgerichteBinding.inflate(inflater, container, false)
-        val myView: View = inflater.inflate(R.layout.fragment_hauptgerichte, container, false)
-        val myButton = myView.findViewById(R.id.add_button) as Button
-        myButton.setOnClickListener(this)
+        binding.addButton.setOnClickListener(this)
         return binding.root
     }
 
     override fun onClick(v: View?) {
         val intent = Intent(activity, AddRecipeActivity::class.java)
-        startActivityForResult(intent, newRecipeActivityRequestCode)
+        activity?.startActivityForResult(intent, newRecipeActivityRequestCode)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +52,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showRezepte() {
-        val rezepte = getHauptgerichteList(resources)
+        val rezepte = hauptgerichteListe
 
         val recyclerView = binding.hauptgerichteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -74,11 +73,14 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+        else {
+            Toast.makeText(activity, "Invalid return!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
-        val hauptgerichte = Rezepte()
-        var newRecipe = Rezept(hauptgerichte.hauptgerichteListe.size+1, recipeTitle, recipeIngredients, recipeDescription)
-        hauptgerichte.hauptgerichteListe.add(newRecipe)
+
+        val newRecipe = Rezept(hauptgerichteListe.size+1, recipeTitle, recipeIngredients, recipeDescription)
+        hauptgerichteListe.add(newRecipe)
     }
 }
