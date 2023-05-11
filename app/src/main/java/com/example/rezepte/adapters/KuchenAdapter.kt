@@ -41,8 +41,8 @@ class KuchenAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<Kuche
         }
 
         override fun onClick(v: View?) {
-            val intent: Intent = Intent(context, RezeptDetailFragment::class.java)
-            var rezept_id: Long = data[adapterPosition].id
+            val intent = Intent(context, RezeptDetailFragment::class.java)
+            var rezept_id: Int = data[adapterPosition].id
             var rezept_titel: String = data[adapterPosition].Titel
             var rezept_zutaten: String = data[adapterPosition].Zutaten
             var rezept_beschreibung: String = data[adapterPosition].Beschreibung

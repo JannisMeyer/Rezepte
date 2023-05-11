@@ -1,9 +1,10 @@
 package com.example.rezepte.data
 
+import android.app.Application
 import android.content.res.Resources
 
-fun hauptgerichteList(resources: Resources): List<Rezept> {
-    return listOf(
+class Rezepte: Application() {
+    val hauptgerichteListe:MutableList<Rezept> = mutableListOf(
         Rezept(
             id = 1,
             Titel = "Chicken Tikka Masala",
@@ -223,4 +224,9 @@ fun hauptgerichteList(resources: Resources): List<Rezept> {
             Beschreibung = "Nudeln kochen(bisschen Nudelwasser aufbewahren!), derweil Zwiebeln im Öl anbraten, Thunfisch und Tomatenmark dazu und kurz mitbraten, bis Thunfischgeruch weg ist, mit Milch ablöschen und Hitze weg, Kräuter, Nudeln und Nudelwasser dazu und alles cremig rühren, mit Essig, Salz und Pfeffer abschmecken"
         )
     )
+}
+
+fun getHauptgerichteList(resources: Resources): List<Rezept> {
+    var hauptgerichteTemp = Rezepte()
+    return hauptgerichteTemp.hauptgerichteListe
 }

@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.R
 import com.example.rezepte.adapters.HauptgerichteAdapter
-import com.example.rezepte.data.hauptgerichteList
+import com.example.rezepte.data.Rezept
+import com.example.rezepte.data.Rezepte
+import com.example.rezepte.data.getHauptgerichteList
 import com.example.rezepte.databinding.FragmentHauptgerichteBinding
 import com.example.rezepte.ui.AddRecipeActivity
 import com.example.rezepte.ui.RECIPE_DESCRIPTION
@@ -35,7 +37,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        val intent = Intent(this, AddRecipeActivity::class.java)
+        val intent = Intent(activity, AddRecipeActivity::class.java)
         startActivityForResult(intent, newRecipeActivityRequestCode)
     }
 
@@ -51,7 +53,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showRezepte() {
-        val rezepte = hauptgerichteList(resources)
+        val rezepte = getHauptgerichteList(resources)
 
         val recyclerView = binding.hauptgerichteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -67,12 +69,16 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
                 val recipeIngredients = data.getStringExtra(RECIPE_INGREDIENTS)
                 val recipeDescription = data.getStringExtra(RECIPE_DESCRIPTION)
 
-                insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
+                if (recipeTitle != null && recipeIngredients != null && recipeDescription != null) {
+                    insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
+                }
             }
         }
     }
 
-    private fun insertRecipe(recipeTitle: String?, recipeIngredients: String?, recipeDescription: String?) {
-
+    private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
+        val hauptgerichte = Rezepte()
+        var newRecipe = Rezept(hauptgerichte.hauptgerichteListe.size+1, recipeTitle, recipeIngredients, recipeDescription)
+        hauptgerichte.hauptgerichteListe.add(newRecipe)
     }
 }
