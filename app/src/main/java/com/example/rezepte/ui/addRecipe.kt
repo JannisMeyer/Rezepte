@@ -23,20 +23,20 @@ class AddRecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_recipe_layout)
 
-        findViewById<Button>(R.id.done_button).setOnClickListener {
-            addRecipe()
-        }
         addRecipeTitle = findViewById(R.id.add_recipe_title)
         addRecipeIngredients = findViewById(R.id.add_recipe_ingredients)
         addRecipeDescription = findViewById(R.id.add_recipe_description)
-        TODO("implement view binding")
+
+        findViewById<Button>(R.id.done_button).setOnClickListener {
+            addRecipe()
+        }
     }
 
     private fun addRecipe() {
         val resultIntent = Intent()
 
         if (addRecipeTitle.text.isNullOrEmpty() || addRecipeIngredients.text.isNullOrEmpty() || addRecipeDescription.text.isNullOrEmpty()) {
-            Toast.makeText(this, "Invalid Input!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid Input (null or empty)!", Toast.LENGTH_SHORT).show()
             setResult(Activity.RESULT_CANCELED, resultIntent)
         } else {
             val title = addRecipeTitle.text.toString()
@@ -47,6 +47,7 @@ class AddRecipeActivity : AppCompatActivity() {
             resultIntent.putExtra(RECIPE_DESCRIPTION, description)
             setResult(Activity.RESULT_OK, resultIntent)
         }
+        Toast.makeText(this, "Finished adding new recipe!", Toast.LENGTH_SHORT).show() //for testing
         finish()
     }
 }

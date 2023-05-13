@@ -5,7 +5,8 @@ import android.content.res.Resources
 
 class Rezepte: Application() {
     companion object{
-        val hauptgerichteListe:MutableList<Rezept> = mutableListOf(
+        var test = 0; //for testing
+        var hauptgerichteListe:MutableList<Rezept> = mutableListOf(
             Rezept(
                 id = 1,
                 Titel = "Chicken Tikka Masala",
