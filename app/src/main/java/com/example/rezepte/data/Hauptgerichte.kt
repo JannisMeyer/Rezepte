@@ -104,15 +104,15 @@ class Rezepte: Application() {
                         "3TL Kreuzkümmel\n" +
                         "3TL Garam Masala\n" +
                         "3TL Kurkuma\n" +
-                        "3TL Koriander" +
-                        "3 Tomatendosen" +
-                        "250ml Wasser" +
-                        "4 Dosen Kichererbsen" +
-                        "1EL Stärke" +
-                        "1EL Wasser" +
-                        "20g Butter" +
-                        "1EL Zitronensaft" +
-                        "Petersilie" +
+                        "3TL Koriander\n" +
+                        "3 Tomatendosen\n" +
+                        "250ml Wasser\n" +
+                        "4 Dosen Kichererbsen\n" +
+                        "1EL Stärke\n" +
+                        "1EL Wasser\n" +
+                        "20g Butter\n" +
+                        "1EL Zitronensaft\n" +
+                        "Petersilie\n" +
                         "Salz, Pfeffer",
                 Beschreibung = "Zwiebel mit Zucker im Öl anbraten, Knoblauch und Ingwer hacken und mit Gewürzen kurz mitbraten, Dosentomaten und Wasser dazu, 30 Minuten offen köcheln lassen, Soße pürieren, Stärke mit Wasser verrühren und einrühren, Kichererbsen, Zitronensaft, Butter und Petersilie dazu, mit Salz und Pfeffer abschmecken"
             ),

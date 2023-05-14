@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
-import com.example.rezepte.rezeptDetail.RezeptDetailFragment
+import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
 class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteAdapter.ViewHolder>() {
 
@@ -41,7 +41,7 @@ class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteA
         }
 
         override fun onClick(v: View?) {
-            val intent: Intent = Intent(context, RezeptDetailFragment::class.java)
+            val intent: Intent = Intent(context, RezeptDetailActivity::class.java)
             var rezept_id: Int = data[adapterPosition].id
             var rezept_titel: String = data[adapterPosition].Titel
             var rezept_zutaten: String = data[adapterPosition].Zutaten

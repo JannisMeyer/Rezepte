@@ -16,7 +16,7 @@
             android:name=".ui.AddRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".rezeptDetail.RezeptDetailFragment"
+            android:name=".rezeptDetail.RezeptDetailActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
-import com.example.rezepte.rezeptDetail.RezeptDetailFragment
+import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
 class SalateAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<SalateAdapter.ViewHolder>() {
 
@@ -41,7 +41,7 @@ class SalateAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<Salat
         }
 
         override fun onClick(v: View?) {
-            val intent = Intent(context, RezeptDetailFragment::class.java)
+            val intent = Intent(context, RezeptDetailActivity::class.java)
             val rezept_id: Int = data[adapterPosition].id
             val rezept_titel: String = data[adapterPosition].Titel
             val rezept_zutaten: String = data[adapterPosition].Zutaten

@@ -34,13 +34,12 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
     private var mainDishes : MutableList<Rezept>? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loadData()
-    }
-
     private fun saveData() {
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_main_dishes", MODE_PRIVATE)
+        Toast.makeText(activity, "saveData() called!", Toast.LENGTH_SHORT).show()
+        if(mainDishes == null){
+            mainDishes = hauptgerichteListe
+        }
+        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(mainDishes)
@@ -49,21 +48,25 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadData() {
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_main_dishes", MODE_PRIVATE)
+        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("main dishes", null)
         val type : Type = object : TypeToken<MutableList<Rezept>>() {}.type
         mainDishes = gson.fromJson(json, type)
+        if(mainDishes == null){ //for testing
+            Toast.makeText(activity, "Loaded data is null! (loadData())", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHauptgerichteBinding.inflate(inflater, container, false)
         binding.addButton.setOnClickListener(this)
+        loadData()
         return binding.root
     }
 
     override fun onClick(v: View?) {
-        Toast.makeText(activity, "addButton clicked!", Toast.LENGTH_SHORT).show() //for testing
+        Toast.makeText(activity, "addButton clicked (onClick())!", Toast.LENGTH_SHORT).show() //for testing
         val intent = Intent(activity, AddRecipeActivity::class.java)
         startActivityForResult(intent, newRecipeActivityRequestCode)
     }
@@ -81,14 +84,19 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
     }
 
     private fun showRezepte() {
-        TODO("combine hauptgerichteListe with saved recipes")
-        TODO("how to save data from hauptgerichteListe?")
-        val rezepte = hauptgerichteListe
+        lateinit var rezepte:MutableList<Rezept>
+        if(mainDishes != null){
+            rezepte = mainDishes as MutableList<Rezept>
+        }
+        else{
+            rezepte = hauptgerichteListe
+            Toast.makeText(activity, "No saved data (showRezepte())!", Toast.LENGTH_SHORT).show() //for testing
+        }
 
         val recyclerView = binding.hauptgerichteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = HauptgerichteAdapter(rezepte)
-    }
+      }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
@@ -105,19 +113,24 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
                     insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
                 }
                 else {
-                    Toast.makeText(activity, "Invalid values (null)!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Invalid values (null) (onActivityResult())!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
         else {
-            Toast.makeText(activity, "Invalid return of activity!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Invalid return of activity (onActivityResult())!", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
-        val newRecipe = Rezept(hauptgerichteListe.size+1, recipeTitle, recipeIngredients, recipeDescription)
-        hauptgerichteListe.add(newRecipe)
+        val size:Int = if(mainDishes != null){
+            mainDishes!!.size
+        } else{
+            hauptgerichteListe.size
+        }
+        val newRecipe = Rezept(size+1, recipeTitle, recipeIngredients, recipeDescription)
+        mainDishes?.add(newRecipe)
 
         //for testing
         Toast.makeText(activity, "insertRecipe() called!", Toast.LENGTH_SHORT).show()

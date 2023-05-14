@@ -9,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
-import com.example.rezepte.rezeptDetail.RezeptDetailFragment
+import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
 class HauptgerichteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<HauptgerichteAdapter.ViewHolder>() {
 
@@ -43,7 +42,7 @@ class HauptgerichteAdapter(private val data: List<Rezept>) : RecyclerView.Adapte
 
         override fun onClick(v: View?) {
             //Toast.makeText(context, "Clicked main dish!", Toast.LENGTH_SHORT).show() //for testing
-            val intent: Intent = Intent(context, RezeptDetailFragment::class.java)
+            val intent: Intent = Intent(context, RezeptDetailActivity::class.java)
             val rezept_id: Int = data[adapterPosition].id
             val rezept_titel: String = data[adapterPosition].Titel
             val rezept_zutaten: String = data[adapterPosition].Zutaten
@@ -54,6 +53,7 @@ class HauptgerichteAdapter(private val data: List<Rezept>) : RecyclerView.Adapte
                 putString("TITEL", rezept_titel)
                 putString("ZUTATEN", rezept_zutaten)
                 putString("BESCHR", rezept_beschreibung)
+                putString("TYPE", "main dishes")
             }
             intent.putExtras(extras)
             context.startActivity(intent)
