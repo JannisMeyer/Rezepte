@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.databinding.ActivityRezeptDetailBinding
@@ -16,6 +17,7 @@ import java.lang.reflect.Type
 class RezeptDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRezeptDetailBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -54,17 +56,26 @@ class RezeptDetailActivity : AppCompatActivity() {
     }
 
     private fun deleteRecipe(recipeType : String, recipeId : String) {
-        val recipes : MutableList<Rezept>
-        recipes = loadRecipes(recipeType)
+        val recipes : MutableList<Rezept> = loadRecipes(recipeType)
 
-        TODO("delete recipe")
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setMessage("Rezept löschen?")
+        alertDialogBuilder.setPositiveButton("Ja") { dialog, which ->
+            for (item in recipes) {
+                if (item.id == recipeId.toInt()) {
+                    recipes.remove(item)
+                }
+            }
+            saveRecipes(recipes, recipeType)
+        }
+        alertDialogBuilder.setNegativeButton("Nein") { dialog, which ->
 
-        saveRecipes(recipes, recipeType)
+        }
+        alertDialogBuilder.show()
     }
 
     private fun editRecipe(recipeType : String, recipeId : String) {
-        val recipes : MutableList<Rezept>
-        recipes = loadRecipes(recipeType)
+        val recipes : MutableList<Rezept> = loadRecipes(recipeType)
 
         TODO("edit recipe")
 
