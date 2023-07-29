@@ -42,10 +42,10 @@ class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteA
 
         override fun onClick(v: View?) {
             val intent: Intent = Intent(context, RezeptDetailActivity::class.java)
-            var rezept_id: Int = data[adapterPosition].id
-            var rezept_titel: String = data[adapterPosition].Titel
-            var rezept_zutaten: String = data[adapterPosition].Zutaten
-            var rezept_beschreibung: String = data[adapterPosition].Beschreibung
+            val rezept_id: Int = data[adapterPosition].id
+            val rezept_titel: String = data[adapterPosition].Titel
+            val rezept_zutaten: String = data[adapterPosition].Zutaten
+            val rezept_beschreibung: String = data[adapterPosition].Beschreibung
 
             val extras = Bundle().apply {
                 putString("ID", rezept_id.toString())

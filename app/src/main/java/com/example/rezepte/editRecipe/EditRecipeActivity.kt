@@ -1,31 +1,43 @@
 package com.example.rezepte.editRecipe
 
 import android.content.SharedPreferences
+import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
+import com.example.rezepte.databinding.ActivityEditRecipeBinding
+import com.example.rezepte.databinding.ActivityRezeptDetailBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-class EditRecipeActivity {
+class EditRecipeActivity : AppCompatActivity() {
 
-}
+    private lateinit var binding: ActivityEditRecipeBinding
 
-private fun loadRecipes(recipeType: String): MutableList<Rezept> {
-    val sharedPreferences: SharedPreferences = this.getSharedPreferences("saved_recipes",
-        AppCompatActivity.MODE_PRIVATE
-    )
-    val gson = Gson()
-    val json = sharedPreferences.getString(recipeType, null)
-    val type: Type = object : TypeToken<MutableList<Rezept>>() {}.type
-    return gson.fromJson(json, type)
-}
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-private fun saveRecipes(recipes : MutableList<Rezept>, recipeType: String) {
-    val sharedPreferences : SharedPreferences = this.getSharedPreferences("saved_recipes",
-        AppCompatActivity.MODE_PRIVATE
-    )
-    val editor = sharedPreferences.edit()
-    val gson = Gson()
-    val json = gson.toJson(recipes)
-    editor.putString(recipeType, json)
-    editor.apply()
+        super.onCreate(savedInstanceState)
+        binding = ActivityEditRecipeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val extras = intent.extras
+        val recipeType = extras?.getString("TYPE")
+        val recipeId = extras?.getString("ID")
+
+        binding.doneButton.setOnClickListener {
+            if (recipeType != null && recipeId != null) {
+                returnRecipe()
+            }
+            else {
+                Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun returnRecipe() {
+        //TODO: return recipe from user input
+    }
 }

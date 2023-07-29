@@ -39,7 +39,8 @@ class RezeptDetailActivity : AppCompatActivity() {
 
         binding.editButton.setOnClickListener {
             if (recipeType != null && recipeId != null) {
-                editRecipe(recipeType, recipeId)
+                //TODO: start EditRecipeActivity with intent
+                //TODO: add onActivityResult() into this class and update shared preferences with edited recipes
             }
             else {
                 Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
@@ -72,14 +73,6 @@ class RezeptDetailActivity : AppCompatActivity() {
 
         }
         alertDialogBuilder.show()
-    }
-
-    private fun editRecipe(recipeType : String, recipeId : String) {
-        val recipes : MutableList<Rezept> = loadRecipes(recipeType)
-
-        TODO("edit recipe")
-
-        saveRecipes(recipes, recipeType)
     }
 
     private fun loadRecipes(recipeType: String): MutableList<Rezept> {

@@ -27,11 +27,11 @@ class AddRecipeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.doneButton.setOnClickListener() {
-            addRecipe()
+            returnRecipe()
         }
     }
 
-    private fun addRecipe() {
+    private fun returnRecipe() {
         val resultIntent = Intent()
 
         if (binding.addRecipeTitle.text.isNullOrEmpty() || binding.addRecipeIngredients.text.isNullOrEmpty() || binding.addRecipeDescription.text.isNullOrEmpty()) {
