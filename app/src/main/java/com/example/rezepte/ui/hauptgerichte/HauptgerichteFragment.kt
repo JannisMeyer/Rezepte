@@ -131,6 +131,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         }
         val newRecipe = Rezept(size+1, recipeTitle, recipeIngredients, recipeDescription)
         mainDishes?.add(newRecipe)
+        saveData()
 
         //for testing
         Toast.makeText(activity, "insertRecipe() called!", Toast.LENGTH_SHORT).show()

@@ -16,6 +16,9 @@
             android:name=".ui.AddRecipeActivity"
             android:exported="false" />
         <activity
+            android:name=".editRecipe.EditRecipeActivity"
+            android:exported="false" />
+        <activity
             android:name=".rezeptDetail.RezeptDetailActivity"
             android:exported="false" />
         <activity

@@ -3,13 +3,14 @@ package com.example.rezepte.adapters
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.example.rezepte.R
-
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
