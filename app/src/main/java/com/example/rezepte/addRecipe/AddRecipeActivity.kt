@@ -26,6 +26,8 @@ class AddRecipeActivity : AppCompatActivity() {
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val extras = intent.extras
+
         binding.doneButton.setOnClickListener() {
             returnRecipe()
         }

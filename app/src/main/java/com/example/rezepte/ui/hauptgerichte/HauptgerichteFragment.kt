@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.HauptgerichteAdapter
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.data.Rezepte.Companion.hauptgerichteListe
-import com.example.rezepte.data.Rezepte.Companion.test
 import com.example.rezepte.databinding.FragmentHauptgerichteBinding
 import com.example.rezepte.ui.AddRecipeActivity
 import com.example.rezepte.ui.RECIPE_DESCRIPTION
@@ -131,13 +130,35 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         } else{
             hauptgerichteListe.size
         }
-        val newRecipe = Rezept(size+1, recipeTitle, recipeIngredients, recipeDescription)
+
+        //find unused identifying number
+        var identification : Int = 0
+        var idFound : Boolean
+        while (true) {
+            idFound = true
+            identification++
+            for(item in mainDishes!!) {
+                if (item.id == identification) {
+                    idFound = false
+                    break
+                }
+            }
+            if (idFound) {
+                break
+            }
+        }
+
+        //create new recipe and add it to the list
+        val newRecipe = Rezept(identification, recipeTitle, recipeIngredients, recipeDescription)
         mainDishes?.add(newRecipe)
+
+        //sort recipes in alphabetical order, case sensitive
+        mainDishes!!.sortBy { it.Titel }
+
+        //notify adapter of changed data set and save
         val recyclerView = binding.hauptgerichteRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
         saveData()
-
-        //TODO: Manage id/alphabetical order
 
         /*//for testing
         Toast.makeText(activity, "insertRecipe() called!", Toast.LENGTH_SHORT).show()
@@ -167,7 +188,5 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
         }
         alertDialogBuilder.show()
-
-        //TODO: Manage id/alphabetical order
     }
 }

@@ -1,5 +1,6 @@
 package com.example.rezepte.adapters
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -45,7 +46,7 @@ class HauptgerichteAdapter(private val data: List<Rezept>, val deleteRecipe: (id
             rezept_titelView.setOnLongClickListener() {
 
                 // For testing
-                Toast.makeText(itemView.context,"This is a long click",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(itemView.context,"This is a long click",Toast.LENGTH_SHORT).show();
 
                 deleteRecipe(data[absoluteAdapterPosition].id.toString())
 

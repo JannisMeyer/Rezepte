@@ -43,7 +43,11 @@ class RezeptDetailActivity : AppCompatActivity() {
         binding.editButton.setOnClickListener {
             if (recipeTypeGlobal != null && recipeIdGlobal != null) {
                 val intent = Intent(this, EditRecipeActivity::class.java)
-                //TODO: add recipe values to intent
+                intent.putExtra("TYPE", recipeTypeGlobal)
+                intent.putExtra("ID", recipeIdGlobal)
+                intent.putExtra("TITLE", extras.getString("TITEL"))
+                intent.putExtra("INGREDIENTS", extras.getString("ZUTATEN"))
+                intent.putExtra("DESCRIPTION", extras.getString("BESCHR"))
                 startActivityForResult(intent, newRecipeActivityRequestCode)
             }
             else {

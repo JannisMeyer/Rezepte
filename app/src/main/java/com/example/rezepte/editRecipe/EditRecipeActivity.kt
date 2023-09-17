@@ -26,6 +26,13 @@ class EditRecipeActivity : AppCompatActivity() {
         val extras = intent.extras
         val recipeType = extras?.getString("TYPE")
         val recipeId = extras?.getString("ID")
+        val recipeTitle = extras?.getString("TITLE")
+        val recipeIngredients = extras?.getString("INGREDIENTS")
+        val recipeDescription = extras?.getString("DESCRIPTION")
+
+        binding.editRecipeTitle.setText(recipeTitle)
+        binding.editRecipeIngredients.setText(recipeIngredients)
+        binding.editRecipeDescription.setText(recipeDescription)
 
         binding.doneButton.setOnClickListener {
             if (recipeType != null && recipeId != null) {

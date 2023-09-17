@@ -18,7 +18,7 @@
     <string name="addbutton">+</string>
     <string name="addRecipe">Rezept hinzufügen</string>
     <string name="recipeTitleEdit">Titel</string>
-    <string name="recipeIngredientsEdit">Zutaten (bitte mit "\\n" getrennt eingeben!)</string>
+    <string name="recipeIngredientsEdit">Zutaten (pro Zutat eine Zeile!)</string>
     <string name="recipeDescriptionEdit">Beschreibung</string>
     <string name="doneButtonText">Fertig</string>
     <string name="editRecipe">Rezept bearbeiten</string>
