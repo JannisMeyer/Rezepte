@@ -40,18 +40,10 @@ class RezeptDetailActivity : AppCompatActivity() {
         val recipeTypeGlobal = extras?.getString("TYPE")
         val recipeIdGlobal = extras?.getString("ID")
 
-        binding.deleteButton.setOnClickListener {
-            if (recipeTypeGlobal != null && recipeIdGlobal != null) {
-                deleteRecipe(recipeTypeGlobal, recipeIdGlobal)
-            }
-            else {
-                Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
-            }
-        }
-
         binding.editButton.setOnClickListener {
             if (recipeTypeGlobal != null && recipeIdGlobal != null) {
                 val intent = Intent(this, EditRecipeActivity::class.java)
+                //TODO: add recipe values to intent
                 startActivityForResult(intent, newRecipeActivityRequestCode)
             }
             else {
@@ -66,27 +58,6 @@ class RezeptDetailActivity : AppCompatActivity() {
         recipeTitleView.text = extras?.getString("TITEL")
         recipeIngredientsView.text = extras?.getString("ZUTATEN")
         recipeDescriptionView.text = extras?.getString("BESCHR")
-    }
-
-    private fun deleteRecipe(recipeType : String, recipeId : String) {
-        val recipes : MutableList<Rezept> = loadRecipes(recipeType)
-
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setMessage("Rezept löschen?")
-        alertDialogBuilder.setPositiveButton("Ja") { dialog, which ->
-            for (item in recipes) {
-                if (item.id == recipeId.toInt()) {
-                    Toast.makeText(this, "delete recipe "+item.Titel, Toast.LENGTH_SHORT).show()
-                    recipes.remove(item)
-                }
-            }
-            saveRecipes(recipes, recipeType)
-            finish()
-        }
-        alertDialogBuilder.setNegativeButton("Nein") { dialog, which ->
-
-        }
-        alertDialogBuilder.show()
     }
 
     private fun loadRecipes(recipeType: String): MutableList<Rezept> {

@@ -1,6 +1,7 @@
 package com.example.rezepte.ui.hauptgerichte
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
@@ -54,6 +55,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         val type : Type = object : TypeToken<MutableList<Rezept>>() {}.type
         mainDishes = gson.fromJson(json, type)
         if(mainDishes == null){ //for testing
+            mainDishes = hauptgerichteListe
             Toast.makeText(activity, "Loaded data is null! (loadData())", Toast.LENGTH_SHORT).show()
         }
     }
@@ -95,7 +97,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
         val recyclerView = binding.hauptgerichteRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = HauptgerichteAdapter(rezepte)
+        recyclerView.adapter = HauptgerichteAdapter(rezepte, ::deleteRecipe)
       }
 
     @Deprecated("Deprecated in Java")
@@ -131,11 +133,41 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         }
         val newRecipe = Rezept(size+1, recipeTitle, recipeIngredients, recipeDescription)
         mainDishes?.add(newRecipe)
+        val recyclerView = binding.hauptgerichteRecyclerView
+        recyclerView.adapter?.notifyDataSetChanged()
         saveData()
 
-        //for testing
+        //TODO: Manage id/alphabetical order
+
+        /*//for testing
         Toast.makeText(activity, "insertRecipe() called!", Toast.LENGTH_SHORT).show()
         test = 1;
-        binding.textHauptgerichte.text = test.toString()
+        binding.textHauptgerichte.text = test.toString()*/
+    }
+
+    fun deleteRecipe(recipeId : String) {
+
+        Toast.makeText(activity, "id: "+recipeId, Toast.LENGTH_SHORT).show()
+
+        val alertDialogBuilder = AlertDialog.Builder(activity)
+        alertDialogBuilder.setMessage("Rezept löschen?")
+        alertDialogBuilder.setPositiveButton("Ja") { dialog, which ->
+            for (item in mainDishes!!) {
+                if (item.id == recipeId.toInt()) {
+                    Toast.makeText(activity, "delete recipe "+item.Titel, Toast.LENGTH_SHORT).show()
+                    mainDishes?.remove(item)
+                    break
+                }
+            }
+            val recyclerView = binding.hauptgerichteRecyclerView
+            recyclerView.adapter?.notifyDataSetChanged()
+            saveData()
+        }
+        alertDialogBuilder.setNegativeButton("Nein") { dialog, which ->
+
+        }
+        alertDialogBuilder.show()
+
+        //TODO: Manage id/alphabetical order
     }
 }

@@ -127,7 +127,7 @@ class Rezepte: Application() {
                         "1TL italienische Kräuter\n" +
                         "1TL Zucker\n" +
                         "2 Dosen Tomaten\n" +
-                        "2 gepressteKnoblauchzehen\n" +
+                        "2 gepresste Knoblauchzehen\n" +
                         "Salz, Pfeffer \n" +
                         "80g Butter \n" +
                         "4EL Mehl \n" +
