@@ -3,23 +3,20 @@ package com.example.rezepte.rezeptDetail
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.rezepte.R
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.databinding.ActivityRezeptDetailBinding
 import com.example.rezepte.editRecipe.EditRecipeActivity
-import com.example.rezepte.ui.AddRecipeActivity
-import com.example.rezepte.ui.RECIPE_DESCRIPTION
-import com.example.rezepte.ui.RECIPE_INGREDIENTS
-import com.example.rezepte.ui.RECIPE_TITLE
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+//TODO: Rename every german expression in variable names to an english one
+//TODO: Add/remove toasts
 
 class RezeptDetailActivity : AppCompatActivity() {
 
@@ -27,10 +24,9 @@ class RezeptDetailActivity : AppCompatActivity() {
 
     private val newRecipeActivityRequestCode = 1
 
-    private lateinit var recipeTypeGlobal : String
-    private lateinit var recipeIdGlobal : String
-
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Toast.makeText(this, "onCreate() from RezeptDetailActivity called", Toast.LENGTH_SHORT).show()
 
         super.onCreate(savedInstanceState)
         binding = ActivityRezeptDetailBinding.inflate(layoutInflater)
@@ -77,31 +73,34 @@ class RezeptDetailActivity : AppCompatActivity() {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(recipes)
-        editor.remove(recipeType)
+
         editor.putString(recipeType, json)
-        editor.commit()
+        editor.apply()
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == newRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.let { data ->
-                val recipeTitle = data.getStringExtra(RECIPE_TITLE)
-                val recipeIngredients = data.getStringExtra(RECIPE_INGREDIENTS)
-                val recipeDescription = data.getStringExtra(RECIPE_DESCRIPTION)
+            data?.let { extra ->
+                val recipeTitle = extra.getStringExtra("RECIPE_TITLE")
+                val recipeIngredients = extra.getStringExtra("RECIPE_INGREDIENTS")
+                val recipeDescription = extra.getStringExtra("RECIPE_DESCRIPTION")
+                val recipeType = extra.getStringExtra("RECIPE_TYPE")
+                val recipeId = extra.getStringExtra("RECIPE_ID")
 
-                if (recipeTitle != null && recipeIngredients != null && recipeDescription != null) {
-                    val recipes : MutableList<Rezept> = loadRecipes(recipeTypeGlobal)
+                if (recipeTitle != null && recipeIngredients != null && recipeDescription != null && recipeType != null && recipeId != null) {
+                    val recipes : MutableList<Rezept> = loadRecipes(recipeType.toString())
 
                     for (item in recipes) {
-                        if (item.id == recipeIdGlobal.toInt()) {
+                        if (item.id == recipeId.toInt()) {
                             item.Titel = recipeTitle
                             item.Zutaten = recipeIngredients
                             item.Beschreibung = recipeDescription
                         }
                     }
-                    saveRecipes(recipes, recipeTypeGlobal)
+                    saveRecipes(recipes, recipeType)
+                    finish()
                 }
                 else {
                     Toast.makeText(this, "Invalid values (null) (onActivityResult())!", Toast.LENGTH_SHORT).show()

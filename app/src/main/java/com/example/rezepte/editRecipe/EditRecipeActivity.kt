@@ -1,17 +1,11 @@
 package com.example.rezepte.editRecipe
 
-import android.content.SharedPreferences
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rezepte.R
-import com.example.rezepte.data.Rezept
 import com.example.rezepte.databinding.ActivityEditRecipeBinding
-import com.example.rezepte.databinding.ActivityRezeptDetailBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 class EditRecipeActivity : AppCompatActivity() {
 
@@ -36,7 +30,7 @@ class EditRecipeActivity : AppCompatActivity() {
 
         binding.doneButton.setOnClickListener {
             if (recipeType != null && recipeId != null) {
-                returnRecipe()
+                returnRecipe(recipeType, recipeId)
             }
             else {
                 Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
@@ -44,7 +38,24 @@ class EditRecipeActivity : AppCompatActivity() {
         }
     }
 
-    private fun returnRecipe() {
-        //TODO: return recipe from user input
+    private fun returnRecipe(type : String, id: String) {
+        val resultIntent = Intent()
+
+        if (binding.editRecipeTitle.text.isNullOrEmpty() || binding.editRecipeIngredients.text.isNullOrEmpty() || binding.editRecipeDescription.text.isNullOrEmpty()) {
+            Toast.makeText(this, "Ungültige Eingabe!", Toast.LENGTH_SHORT).show()
+            setResult(Activity.RESULT_CANCELED, resultIntent)
+        } else {
+            val title = binding.editRecipeTitle.text.toString()
+            val ingredients = binding.editRecipeIngredients.text.toString()
+            val description = binding.editRecipeDescription.text.toString()
+            resultIntent.putExtra("RECIPE_TITLE", title)
+            resultIntent.putExtra("RECIPE_INGREDIENTS", ingredients)
+            resultIntent.putExtra("RECIPE_DESCRIPTION", description)
+            resultIntent.putExtra("RECIPE_TYPE", type)
+            resultIntent.putExtra("RECIPE_ID", id)
+            setResult(Activity.RESULT_OK, resultIntent)
+        }
+        //Toast.makeText(this, "Finished editing recipe!", Toast.LENGTH_SHORT).show() //for testing
+        finish()
     }
 }

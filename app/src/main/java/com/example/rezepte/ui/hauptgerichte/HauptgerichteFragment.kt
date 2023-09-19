@@ -16,21 +16,20 @@ import com.example.rezepte.adapters.HauptgerichteAdapter
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.data.Rezepte.Companion.hauptgerichteListe
 import com.example.rezepte.databinding.FragmentHauptgerichteBinding
-import com.example.rezepte.ui.AddRecipeActivity
-import com.example.rezepte.ui.RECIPE_DESCRIPTION
-import com.example.rezepte.ui.RECIPE_INGREDIENTS
-import com.example.rezepte.ui.RECIPE_TITLE
+import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
+//TODO: Implement adding-/, deleting-/ and editing-functionality to other recipe types, watch for the id management!
 
 class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
     private var _binding: FragmentHauptgerichteBinding? = null
     private val binding get() = _binding!!
 
-    private val newRecipeActivityRequestCode = 1
+    private val addRecipeActivityRequestCode = 1
+    private val editRecipeActivityRequestCode = 2
 
     private var mainDishes : MutableList<Rezept>? = null
 
@@ -59,28 +58,35 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(activity, "onResume() called!", Toast.LENGTH_SHORT).show()
+
+        //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
+        loadData()
+        val recyclerView = binding.hauptgerichteRecyclerView
+        recyclerView.adapter?.notifyDataSetChanged()
+        showRezepte()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHauptgerichteBinding.inflate(inflater, container, false)
         binding.addButton.setOnClickListener(this)
-        loadData()
+        Toast.makeText(activity, "onCreateView called!", Toast.LENGTH_SHORT).show()
+        val recyclerView = binding.hauptgerichteRecyclerView
+        recyclerView.adapter?.notifyDataSetChanged()
         return binding.root
     }
 
     override fun onClick(v: View?) {
         Toast.makeText(activity, "addButton clicked (onClick())!", Toast.LENGTH_SHORT).show() //for testing
         val intent = Intent(activity, AddRecipeActivity::class.java)
-        startActivityForResult(intent, newRecipeActivityRequestCode)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        showRezepte()
+        startActivityForResult(intent, addRecipeActivityRequestCode)
     }
 
     override fun onDestroyView() {
-        saveData()
         super.onDestroyView()
+        saveData()
         _binding = null
     }
 
@@ -101,14 +107,14 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        Toast.makeText(context, "addRecipeActivity returned!", Toast.LENGTH_SHORT).show() //for testing
+        Toast.makeText(context, "Activity returned!", Toast.LENGTH_SHORT).show() //for testing
         super.onActivityResult(requestCode, resultCode, intentData)
 
-        if (requestCode == newRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == addRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
-                val recipeTitle = data.getStringExtra(RECIPE_TITLE)
-                val recipeIngredients = data.getStringExtra(RECIPE_INGREDIENTS)
-                val recipeDescription = data.getStringExtra(RECIPE_DESCRIPTION)
+                val recipeTitle = data.getStringExtra("RECIPE_TITLE")
+                val recipeIngredients = data.getStringExtra("RECIPE_INGREDIENTS")
+                val recipeDescription = data.getStringExtra("RECIPE_DESCRIPTION")
 
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null) {
                     insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
@@ -118,6 +124,12 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+        else if (requestCode == editRecipeActivityRequestCode) {
+            Toast.makeText(activity, "Returned from editing recipe!", Toast.LENGTH_SHORT).show()
+            loadData()
+            val recyclerView = binding.hauptgerichteRecyclerView
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
         else {
             Toast.makeText(activity, "Invalid return of activity (onActivityResult())!", Toast.LENGTH_SHORT).show()
         }
@@ -125,14 +137,8 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
 
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
-        val size:Int = if(mainDishes != null){
-            mainDishes!!.size
-        } else{
-            hauptgerichteListe.size
-        }
-
         //find unused identifying number
-        var identification : Int = 0
+        var identification = 0
         var idFound : Boolean
         while (true) {
             idFound = true
@@ -166,13 +172,13 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
         binding.textHauptgerichte.text = test.toString()*/
     }
 
-    fun deleteRecipe(recipeId : String) {
+    private fun deleteRecipe(recipeId : String, recipeTitle : String) {
 
-        Toast.makeText(activity, "id: "+recipeId, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "id: $recipeId", Toast.LENGTH_SHORT).show()
 
         val alertDialogBuilder = AlertDialog.Builder(activity)
-        alertDialogBuilder.setMessage("Rezept löschen?")
-        alertDialogBuilder.setPositiveButton("Ja") { dialog, which ->
+        alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
+        alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
             for (item in mainDishes!!) {
                 if (item.id == recipeId.toInt()) {
                     Toast.makeText(activity, "delete recipe "+item.Titel, Toast.LENGTH_SHORT).show()
@@ -184,7 +190,7 @@ class HauptgerichteFragment : Fragment(), View.OnClickListener {
             recyclerView.adapter?.notifyDataSetChanged()
             saveData()
         }
-        alertDialogBuilder.setNegativeButton("Nein") { dialog, which ->
+        alertDialogBuilder.setNegativeButton("Nein") { _, _ ->
 
         }
         alertDialogBuilder.show()
