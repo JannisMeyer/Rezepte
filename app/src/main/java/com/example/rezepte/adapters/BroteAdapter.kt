@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
-class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteAdapter.ViewHolder>() {
+class BroteAdapter(private val data: List<Rezept>, val deleteRecipe: (id : String, title : String) -> Unit) : RecyclerView.Adapter<BroteAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -38,6 +38,15 @@ class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteA
 
         init {
             rezept_titelView.setOnClickListener(this)
+            rezept_titelView.setOnLongClickListener() {
+
+                // For testing
+                //Toast.makeText(itemView.context,"This is a long click",Toast.LENGTH_SHORT).show();
+
+                deleteRecipe(data[absoluteAdapterPosition].id.toString(), data[absoluteAdapterPosition].Titel)
+
+                true
+            }
         }
 
         override fun onClick(v: View?) {
@@ -52,6 +61,7 @@ class BroteAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<BroteA
                 putString("TITEL", rezept_titel)
                 putString("ZUTATEN", rezept_zutaten)
                 putString("BESCHR", rezept_beschreibung)
+                putString("TYPE", "bread")
             }
             intent.putExtras(extras)
             context.startActivity(intent)

@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.HauptgerichteAdapter
 import com.example.rezepte.data.Rezept
-import com.example.rezepte.data.Rezepte.Companion.hauptgerichteListe
+import com.example.rezepte.data.MainDishes.Companion.hauptgerichteListe
 import com.example.rezepte.databinding.FragmentHauptgerichteBinding
 import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.google.gson.Gson

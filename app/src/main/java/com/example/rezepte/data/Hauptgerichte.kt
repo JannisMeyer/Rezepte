@@ -1,9 +1,8 @@
 package com.example.rezepte.data
 
 import android.app.Application
-import android.content.res.Resources
 
-class Rezepte: Application() {
+class MainDishes: Application() {
     companion object{
         var test = 0; //for testing
         var hauptgerichteListe:MutableList<Rezept> = mutableListOf(

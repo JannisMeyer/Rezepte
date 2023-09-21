@@ -17,6 +17,7 @@ import java.lang.reflect.Type
 
 //TODO: Rename every german expression in variable names to an english one
 //TODO: Add/remove toasts
+//TODO: Manage order when name of recipe is changed
 
 class RezeptDetailActivity : AppCompatActivity() {
 
