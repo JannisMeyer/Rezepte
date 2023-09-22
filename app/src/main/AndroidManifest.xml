@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_food_svgrepo_com"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Rezepte"
+        android:theme="@style/Theme.Recipes"
         tools:targetApi="31">
         <activity
             android:name=".addRecipe.AddRecipeActivity"
@@ -19,7 +19,7 @@
             android:name=".editRecipe.EditRecipeActivity"
             android:exported="false" />
         <activity
-            android:name=".rezeptDetail.RezeptDetailActivity"
+            android:name=".recipeDetail.RecipeDetailActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

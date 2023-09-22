@@ -1,36 +1,35 @@
 package com.example.rezepte.data
 
 import android.app.Application
-import android.content.res.Resources
 
 class Additions: Application() {
     companion object {
-        var additionsList: MutableList<Rezept> = mutableListOf(
-            Rezept(
+        var additionsList: MutableList<Recipe> = mutableListOf(
+            Recipe(
                 id = 2,
-                Titel = "Apfelmus",
-                Zutaten = "2kg Äpfel\n" +
+                title = "Apfelmus",
+                ingredients = "2kg Äpfel\n" +
                         "250ml  Wasser\n" +
                         "2EL Zucker\n" +
                         "Zitronensaft\n" +
                         "Zimt",
-                Beschreibung = "Äpfel schälen und kleinschneiden, mit Wasser und Zucker aufkochen und dann ca. 25 Minuten köcheln lassen, Äpfel zerstampfen oder pürieren, mit Zitronensaft und Zimt abschmecken"
+                description = "Äpfel schälen und kleinschneiden, mit Wasser und Zucker aufkochen und dann ca. 25 Minuten köcheln lassen, Äpfel zerstampfen oder pürieren, mit Zitronensaft und Zimt abschmecken"
             ),
-            Rezept(
+            Recipe(
                 id = 3,
-                Titel = "Grünes Pesto",
-                Zutaten = "50g Basilikum\n" +
+                title = "Grünes Pesto",
+                ingredients = "50g Basilikum\n" +
                         "50g Pinienkerne\n" +
                         "(3-4 Knoblauchzehen)\n" +
                         "6EL Olivenöl\n" +
                         "4EL geriebener Parmesan\n" +
                         "Prise Salz, Pfeffer",
-                Beschreibung = "Alles im Mixer zerkleinern und vermischen "
+                description = "Alles im Mixer zerkleinern und vermischen "
             ),
-            Rezept(
+            Recipe(
                 id = 4,
-                Titel = "Hühnchen-Marinade",
-                Zutaten = "1EL Honig\n" +
+                title = "Hühnchen-Marinade",
+                ingredients = "1EL Honig\n" +
                         "3EL Olivenöl\n" +
                         "2EL Sojasauce\n" +
                         "3EL Weißwein\n" +
@@ -44,15 +43,15 @@ class Additions: Application() {
                         "0,5TL Zimt\n" +
                         "1TL Pfeffer\n" +
                         "1TL Paprikapulver",
-                Beschreibung = "Alles mischen, für ca. 1kg Huhn"
+                description = "Alles mischen, für ca. 1kg Huhn"
             ),
-            Rezept(
+            Recipe(
                 id = 5,
-                Titel = "Reis",
-                Zutaten = "1,75 Teile Wasser (Gewicht)\n" +
+                title = "Reis",
+                ingredients = "1,75 Teile Wasser (Gewicht)\n" +
                         "Salz\n" +
                         "1 Teil Reis (Gewicht)",
-                Beschreibung = "Wasser mit Salz aufkochen, Reis dazu und einmal umrühren, Deckel drauf und bei niedriger Hitze (Stufe 4 von 9) ca. 25 Minuten köcheln lassen, mit Gabel umrühren, kurz abdampfen lassen"
+                description = "Wasser mit Salz aufkochen, Reis dazu und einmal umrühren, Deckel drauf und bei niedriger Hitze (Stufe 4 von 9) ca. 25 Minuten köcheln lassen, mit Gabel umrühren, kurz abdampfen lassen"
             )
         )
     }

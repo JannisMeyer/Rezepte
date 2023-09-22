@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.kuchen.KuchenFragment">
+    tools:context=".ui.mainDishes.MainDishesFragment">
 
     <TextView
-        android:id="@+id/text_kuchen"
+        android:id="@+id/text_main_dishes"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:textAlignment="center"
@@ -16,16 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/topbarKuchen"
+        android:text="@string/topbarHauptgerichte"
         android:background="#FFD54F"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/kuchen_recycler_view"
+        android:id="@+id/main_dishes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_kuchen"
+        app:layout_constraintTop_toBottomOf="@id/text_main_dishes"
         tools:layout_editor_absoluteX="4dp" />
 
     <Button

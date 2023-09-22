@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_hauptgerichte">
+    app:startDestination="@+id/navigation_main_dishes">
 
     <fragment
-        android:id="@+id/navigation_hauptgerichte"
-        android:name="com.example.rezepte.ui.hauptgerichte.HauptgerichteFragment"
+        android:id="@+id/navigation_main_dishes"
+        android:name="com.example.rezepte.ui.mainDishes.MainDishesFragment"
         android:label="@string/title_hauptgerichte"
-        tools:layout="@layout/fragment_hauptgerichte" />
+        tools:layout="@layout/fragment_main_dishes" />
 
     <fragment
-        android:id="@+id/navigation_salate"
-        android:name="com.example.rezepte.ui.salate.SalateFragment"
+        android:id="@+id/navigation_salads"
+        android:name="com.example.rezepte.ui.salads.SaladsFragment"
         android:label="@string/title_salate"
-        tools:layout="@layout/fragment_salate" />
+        tools:layout="@layout/fragment_salads" />
     <fragment
-        android:id="@+id/navigation_brot"
-        android:name="com.example.rezepte.ui.brot.BrotFragment"
+        android:id="@+id/navigation_breads"
+        android:name="com.example.rezepte.ui.breads.BreadsFragment"
         android:label="@string/title_brot"
-        tools:layout="@layout/fragment_brot" />
+        tools:layout="@layout/fragment_breads" />
     <fragment
-        android:id="@+id/navigation_zusaetze"
-        android:name="com.example.rezepte.ui.zusaetze.ZusaetzeFragment"
+        android:id="@+id/navigation_additions"
+        android:name="com.example.rezepte.ui.additions.AdditionsFragment"
         android:label="@string/title_zusaetze"
-        tools:layout="@layout/fragment_zusaetze" />
+        tools:layout="@layout/fragment_additions" />
     <fragment
-        android:id="@+id/navigation_kuchen"
-        android:name="com.example.rezepte.ui.kuchen.KuchenFragment"
+        android:id="@+id/navigation_cakes"
+        android:name="com.example.rezepte.ui.cakes.CakesFragment"
         android:label="@string/title_kuchen"
-        tools:layout="@layout/fragment_kuchen" />
+        tools:layout="@layout/fragment_cakes" />
 </navigation>

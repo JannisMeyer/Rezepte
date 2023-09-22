@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.brot.BrotFragment">
+    tools:context=".ui.breads.BreadsFragment">
 
     <TextView
-        android:id="@+id/text_brot"
+        android:id="@+id/text_breads"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:textAlignment="center"
@@ -20,12 +20,12 @@
         android:background="#FFD54F"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/brot_recycler_view"
+        android:id="@+id/breads_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_brot"
+        app:layout_constraintTop_toBottomOf="@id/text_breads"
         tools:layout_editor_absoluteX="8dp" />
 
     <Button

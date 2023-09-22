@@ -1,4 +1,4 @@
-package com.example.rezepte.rezeptDetail
+package com.example.rezepte.recipeDetail
 
 import android.app.Activity
 import android.content.Intent
@@ -8,20 +8,16 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rezepte.R
-import com.example.rezepte.data.Rezept
-import com.example.rezepte.databinding.ActivityRezeptDetailBinding
+import com.example.rezepte.data.Recipe
+import com.example.rezepte.databinding.ActivityRecipeDetailBinding
 import com.example.rezepte.editRecipe.EditRecipeActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-//TODO: Rename every german expression in variable names to an english one
-//TODO: Add/remove toasts
-//TODO: Manage order when name of recipe is changed
+class RecipeDetailActivity : AppCompatActivity() {
 
-class RezeptDetailActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityRezeptDetailBinding
+    private lateinit var binding: ActivityRecipeDetailBinding
 
     private val newRecipeActivityRequestCode = 1
 
@@ -29,50 +25,51 @@ class RezeptDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Toast.makeText(this, "onCreate() from RezeptDetailActivity called", Toast.LENGTH_SHORT).show()
-
         super.onCreate(savedInstanceState)
-        binding = ActivityRezeptDetailBinding.inflate(layoutInflater)
+
+        binding = ActivityRecipeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val extras = intent.extras
         val recipeTypeGlobal = extras?.getString("TYPE")
         val recipeIdGlobal = extras?.getString("ID")
-        oldTitle = extras?.getString("TITEL").toString()
+        oldTitle = extras?.getString("TITLE").toString()
 
         binding.editButton.setOnClickListener {
             if (recipeTypeGlobal != null && recipeIdGlobal != null) {
                 val intent = Intent(this, EditRecipeActivity::class.java)
                 intent.putExtra("TYPE", recipeTypeGlobal)
                 intent.putExtra("ID", recipeIdGlobal)
-                intent.putExtra("TITLE", extras.getString("TITEL"))
-                intent.putExtra("INGREDIENTS", extras.getString("ZUTATEN"))
-                intent.putExtra("DESCRIPTION", extras.getString("BESCHR"))
+                intent.putExtra("TITLE", extras.getString("TITLE"))
+                intent.putExtra("INGREDIENTS", extras.getString("INGREDIENTS"))
+                intent.putExtra("DESCRIPTION", extras.getString("DESCRIPTION"))
                 startActivityForResult(intent, newRecipeActivityRequestCode)
             }
             else {
-                Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "intent extra is null! (onCreate() in RecipeDetailActivity)", Toast.LENGTH_SHORT).show()
             }
         }
 
-        val recipeTitleView: TextView = findViewById(R.id.rezept_detail_titel)
-        val recipeIngredientsView: TextView = findViewById(R.id.rezept_detail_zutaten)
-        val recipeDescriptionView: TextView = findViewById(R.id.rezept_detail_beschreibung)
+        val recipeTitleView: TextView = findViewById(R.id.recipe_detail_title)
+        val recipeIngredientsView: TextView = findViewById(R.id.recipe_detail_ingredients)
+        val recipeDescriptionView: TextView = findViewById(R.id.recipe_detail_description)
 
-        recipeTitleView.text = extras?.getString("TITEL")
-        recipeIngredientsView.text = extras?.getString("ZUTATEN")
-        recipeDescriptionView.text = extras?.getString("BESCHR")
+        recipeTitleView.text = extras?.getString("TITLE")
+        recipeIngredientsView.text = extras?.getString("INGREDIENTS")
+        recipeDescriptionView.text = extras?.getString("DESCRIPTION")
     }
 
-    private fun loadRecipes(recipeType: String): MutableList<Rezept> {
+    private fun loadRecipes(recipeType: String): MutableList<Recipe> {
+
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString(recipeType, null)
-        val type: Type = object : TypeToken<MutableList<Rezept>>() {}.type
+        val type: Type = object : TypeToken<MutableList<Recipe>>() {}.type
         return gson.fromJson(json, type)
     }
 
-    private fun saveRecipes(recipes : MutableList<Rezept>, recipeType: String) {
+    private fun saveRecipes(recipes : MutableList<Recipe>, recipeType: String) {
+
         val sharedPreferences : SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
@@ -84,7 +81,9 @@ class RezeptDetailActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == newRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let { extra ->
                 val recipeTitle = extra.getStringExtra("RECIPE_TITLE")
@@ -94,30 +93,30 @@ class RezeptDetailActivity : AppCompatActivity() {
                 val recipeId = extra.getStringExtra("RECIPE_ID")
 
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null && recipeType != null && recipeId != null) {
-                    val recipes : MutableList<Rezept> = loadRecipes(recipeType.toString())
+                    val recipes : MutableList<Recipe> = loadRecipes(recipeType.toString())
 
                     for (item in recipes) {
                         if (item.id == recipeId.toInt()) {
-                            item.Titel = recipeTitle
-                            item.Zutaten = recipeIngredients
-                            item.Beschreibung = recipeDescription
+                            item.title = recipeTitle
+                            item.ingredients = recipeIngredients
+                            item.description = recipeDescription
                         }
                     }
 
                     if(recipeTitle != oldTitle) {
-                        recipes.sortBy { it.Titel }
+                        recipes.sortBy { it.title }
                     }
 
                     saveRecipes(recipes, recipeType)
                     finish()
                 }
                 else {
-                    Toast.makeText(this, "Invalid values (null) (onActivityResult())!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Invalid values (null)! (onActivityResult() in RecipeDetailActivity)", Toast.LENGTH_SHORT).show()
                 }
             }
         }
         else {
-            Toast.makeText(this, "Invalid return of activity (onActivityResult())!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid return of activity! (onActivityResult() in RecipeDetailActivity)", Toast.LENGTH_SHORT).show()
         }
     }
 }

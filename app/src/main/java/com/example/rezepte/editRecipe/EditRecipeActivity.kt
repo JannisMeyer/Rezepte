@@ -33,7 +33,7 @@ class EditRecipeActivity : AppCompatActivity() {
                 returnRecipe(recipeType, recipeId)
             }
             else {
-                Toast.makeText(this, "intent extra is null! (onCreate())", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "intent extra is null! (onCreate() in EditRecipeActivity)", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -55,7 +55,6 @@ class EditRecipeActivity : AppCompatActivity() {
             resultIntent.putExtra("RECIPE_ID", id)
             setResult(Activity.RESULT_OK, resultIntent)
         }
-        //Toast.makeText(this, "Finished editing recipe!", Toast.LENGTH_SHORT).show() //for testing
         finish()
     }
 }

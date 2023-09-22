@@ -17,7 +17,7 @@
         android:textAppearance="?attr/textAppearanceHeadline4" />
 
     <ScrollView
-        android:id="@+id/scrollview"
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="570dp">
         <LinearLayout

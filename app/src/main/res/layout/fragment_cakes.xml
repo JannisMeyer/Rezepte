@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.salate.SalateFragment">
+    tools:context=".ui.cakes.CakesFragment">
 
     <TextView
-        android:id="@+id/text_salate"
+        android:id="@+id/text_cakes"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:textAlignment="center"
@@ -16,16 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/topbarSalate"
+        android:text="@string/topbarKuchen"
         android:background="#FFD54F"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/salate_recycler_view"
+        android:id="@+id/cakes_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_salate"
+        app:layout_constraintTop_toBottomOf="@id/text_cakes"
         tools:layout_editor_absoluteX="4dp" />
 
     <Button

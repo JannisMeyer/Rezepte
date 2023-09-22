@@ -6,39 +6,42 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.rezepte.ui.brot.BrotFragment
-import com.example.rezepte.ui.hauptgerichte.HauptgerichteFragment
-import com.example.rezepte.ui.kuchen.CakeFragment
-import com.example.rezepte.ui.salate.SaladFragment
-import com.example.rezepte.ui.zusaetze.AdditionsFragment
+import com.example.rezepte.ui.breads.BreadsFragment
+import com.example.rezepte.ui.mainDishes.MainDishesFragment
+import com.example.rezepte.ui.cakes.CakesFragment
+import com.example.rezepte.ui.salads.SaladsFragment
+import com.example.rezepte.ui.additions.AdditionsFragment
 
 class MainActivity : AppCompatActivity() {
-    private val hauptgerichteFragment = HauptgerichteFragment()
-    private val broteFragment = BrotFragment()
-    private val salateFragment = SaladFragment()
-    private val zusaetzeFragment = AdditionsFragment()
-    private val kuchenFragment = CakeFragment()
+    private val mainDishesFragment = MainDishesFragment()
+    private val breadsFragment = BreadsFragment()
+    private val saladsFragment = SaladsFragment()
+    private val additionsFragment = AdditionsFragment()
+    private val cakesFragment = CakesFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
-        replaceFragment(hauptgerichteFragment)
+        replaceFragment(mainDishesFragment)
 
-        val bottom_nav: BottomNavigationView = findViewById(R.id.nav_view)
+        val bottomNav: BottomNavigationView = findViewById(R.id.nav_view)
 
-        bottom_nav.setOnNavigationItemSelectedListener {
+        bottomNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_hauptgerichte -> replaceFragment(hauptgerichteFragment)
-                R.id.navigation_brot -> replaceFragment(broteFragment)
-                R.id.navigation_salate -> replaceFragment(salateFragment)
-                R.id.navigation_zusaetze -> replaceFragment(zusaetzeFragment)
-                R.id.navigation_kuchen -> replaceFragment(kuchenFragment)
+                R.id.navigation_main_dishes -> replaceFragment(mainDishesFragment)
+                R.id.navigation_breads -> replaceFragment(breadsFragment)
+                R.id.navigation_salads -> replaceFragment(saladsFragment)
+                R.id.navigation_additions -> replaceFragment(additionsFragment)
+                R.id.navigation_cakes -> replaceFragment(cakesFragment)
             }
             true
         }
     }
 
     private fun replaceFragment(fragment: Fragment) {
+
         val fragManager: FragmentManager = supportFragmentManager
         val fragTransaction: FragmentTransaction = fragManager.beginTransaction()
         fragTransaction.replace(R.id.main_container, fragment)

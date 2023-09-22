@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.zusaetze.ZusaetzeFragment">
+    tools:context=".ui.salads.SaladsFragment">
 
     <TextView
-        android:id="@+id/text_zusaetze"
+        android:id="@+id/text_salads"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:textAlignment="center"
@@ -16,16 +16,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/topbarZusaetze"
+        android:text="@string/topbarSalate"
         android:background="#FFD54F"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/zusaetze_recycler_view"
+        android:id="@+id/salads_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_zusaetze"
+        app:layout_constraintTop_toBottomOf="@id/text_salads"
         tools:layout_editor_absoluteX="4dp" />
 
     <Button

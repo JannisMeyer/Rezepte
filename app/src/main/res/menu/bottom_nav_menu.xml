@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_hauptgerichte"
+        android:id="@+id/navigation_main_dishes"
         android:icon="@drawable/ic_baseline_restaurant_menu_24"
         android:title="@string/title_hauptgerichte" />
     <item
-        android:id="@+id/navigation_salate"
+        android:id="@+id/navigation_salads"
         android:icon="@drawable/ic_salad_svgrepo_com"
         android:title="@string/title_salate" />
     <item
-        android:id="@+id/navigation_brot"
+        android:id="@+id/navigation_breads"
         android:icon="@drawable/ic_bread_svgrepo_com"
         android:title="@string/title_brot" />
     <item
-        android:id="@+id/navigation_zusaetze"
+        android:id="@+id/navigation_additions"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/title_zusaetze" />
     <item
-        android:id="@+id/navigation_kuchen"
+        android:id="@+id/navigation_cakes"
         android:icon="@drawable/ic_cake_slice_svgrepo_com"
         android:title="@string/title_kuchen" />
 

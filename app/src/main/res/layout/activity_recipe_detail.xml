@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/rezept_detail_titel"
+        android:id="@+id/recipe_detail_title"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:background="#FFD54F"
@@ -18,7 +18,7 @@
         android:textSize="25sp" />
 
     <ScrollView
-        android:id="@+id/scrollview"
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="570dp">
 
@@ -26,10 +26,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".rezeptDetail.RezeptDetailActivity">
+            tools:context=".recipeDetail.RecipeDetailActivity">
 
             <TextView
-                android:id="@+id/rezept_detail_zutaten"
+                android:id="@+id/recipe_detail_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="5sp"
@@ -41,7 +41,7 @@
             <View style="@style/Divider" />
 
             <TextView
-                android:id="@+id/rezept_detail_beschreibung"
+                android:id="@+id/recipe_detail_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="10sp"

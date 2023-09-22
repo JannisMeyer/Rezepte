@@ -42,7 +42,6 @@ class AddRecipeActivity : AppCompatActivity() {
 
         setResult(Activity.RESULT_OK, resultIntent)
 
-        //Toast.makeText(this, "Finished adding new recipe!", Toast.LENGTH_SHORT).show() //for testing
         finish()
     }
 }

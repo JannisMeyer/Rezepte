@@ -1,4 +1,4 @@
-package com.example.rezepte.ui.kuchen
+package com.example.rezepte.ui.additions
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -12,37 +12,37 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.rezepte.adapters.CakeAdapter
+import com.example.rezepte.adapters.AdditionsAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
-import com.example.rezepte.data.Cakes.Companion.cakeList
-import com.example.rezepte.data.Rezept
-import com.example.rezepte.databinding.FragmentKuchenBinding
+import com.example.rezepte.data.Additions.Companion.additionsList
+import com.example.rezepte.data.Recipe
+import com.example.rezepte.databinding.FragmentAdditionsBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-class CakeFragment : Fragment(), View.OnClickListener {
+class AdditionsFragment : Fragment(), View.OnClickListener {
 
-    private var _binding: FragmentKuchenBinding? = null
+    private var _binding: FragmentAdditionsBinding? = null
     private val binding get() = _binding!!
 
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var cakes : MutableList<Rezept>? = null
+    private var breads : MutableList<Recipe>? = null
 
     private fun saveData() {
-        //Toast.makeText(activity, "saveData() called!", Toast.LENGTH_SHORT).show()
-        if(cakes == null){
-            cakes = cakeList
+
+        if(breads == null){
+            breads = additionsList
         }
         val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
             Context.MODE_PRIVATE
         )
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(cakes)
-        editor.putString("cakes", json)
+        val json = gson.toJson(breads)
+        editor.putString("additions", json)
         editor.apply()
     }
 
@@ -51,65 +51,67 @@ class CakeFragment : Fragment(), View.OnClickListener {
             Context.MODE_PRIVATE
         )
         val gson = Gson()
-        val json = sharedPreferences.getString("cakes", null)
-        val type : Type = object : TypeToken<MutableList<Rezept>>() {}.type
-        cakes = gson.fromJson(json, type)
-        if(cakes == null){ //for testing
-            cakes = cakeList
-            Toast.makeText(activity, "Loaded data is null! (loadData())", Toast.LENGTH_SHORT).show()
+        val json = sharedPreferences.getString("additions", null)
+        val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
+        breads = gson.fromJson(json, type)
+        if(breads == null){ //for testing
+            breads = additionsList
+            Toast.makeText(activity, "Loaded data is null! (loadData() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onResume() {
+
         super.onResume()
-        //Toast.makeText(activity, "onResume() called!", Toast.LENGTH_SHORT).show()
 
         //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
         loadData()
-        val recyclerView = binding.kuchenRecyclerView
+        val recyclerView = binding.additionsRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
-        showRezepte()
+        showRecipes()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentKuchenBinding.inflate(inflater, container, false)
+
+        _binding = FragmentAdditionsBinding.inflate(inflater, container, false)
         binding.addButton.setOnClickListener(this)
-        //Toast.makeText(activity, "onCreateView called!", Toast.LENGTH_SHORT).show()
-        val recyclerView = binding.kuchenRecyclerView
+        val recyclerView = binding.additionsRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
         return binding.root
     }
 
     override fun onClick(v: View?) {
-        //Toast.makeText(activity, "addButton clicked (onClick())!", Toast.LENGTH_SHORT).show() //for testing
+
         val intent = Intent(activity, AddRecipeActivity::class.java)
         startActivityForResult(intent, addRecipeActivityRequestCode)
     }
 
     override fun onDestroyView() {
+
         super.onDestroyView()
+
         saveData()
         _binding = null
     }
 
-    private fun showRezepte() {
-        lateinit var rezepte:MutableList<Rezept>
-        if(cakes != null){
-            rezepte = cakes as MutableList<Rezept>
+    private fun showRecipes() {
+        lateinit var recipes:MutableList<Recipe>
+        if(breads != null){
+            recipes = breads as MutableList<Recipe>
         }
         else{
-            rezepte = cakeList
-            Toast.makeText(activity, "No saved data (showRezepte())!", Toast.LENGTH_SHORT).show() //for testing
+            recipes = additionsList
+            Toast.makeText(activity, "No saved data! (showRezepte() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
 
-        val recyclerView = binding.kuchenRecyclerView
+        val recyclerView = binding.additionsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = CakeAdapter(rezepte, ::deleteRecipe)
+        recyclerView.adapter = AdditionsAdapter(recipes, ::deleteRecipe)
     }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        //Toast.makeText(context, "Activity returned!", Toast.LENGTH_SHORT).show() //for testing
+
         super.onActivityResult(requestCode, resultCode, intentData)
 
         if (requestCode == addRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
@@ -122,18 +124,17 @@ class CakeFragment : Fragment(), View.OnClickListener {
                     insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
                 }
                 else {
-                    Toast.makeText(activity, "Invalid values (null) (onActivityResult())!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Invalid values (null)! (onActivityResult() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
                 }
             }
         }
         else if (requestCode == editRecipeActivityRequestCode) {
-            Toast.makeText(activity, "Returned from editing recipe!", Toast.LENGTH_SHORT).show()
             loadData()
-            val recyclerView = binding.kuchenRecyclerView
+            val recyclerView = binding.additionsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
         }
         else {
-            Toast.makeText(activity, "Invalid return of activity (onActivityResult())!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Invalid return of activity! (onActivityResult() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -145,7 +146,7 @@ class CakeFragment : Fragment(), View.OnClickListener {
         while (true) {
             idFound = true
             identification++
-            for(item in cakes!!) {
+            for(item in breads!!) {
                 if (item.id == identification) {
                     idFound = false
                     break
@@ -157,38 +158,31 @@ class CakeFragment : Fragment(), View.OnClickListener {
         }
 
         //create new recipe and add it to the list
-        val newRecipe = Rezept(identification, recipeTitle, recipeIngredients, recipeDescription)
-        cakes?.add(newRecipe)
+        val newRecipe = Recipe(identification, recipeTitle, recipeIngredients, recipeDescription)
+        breads?.add(newRecipe)
 
         //sort recipes in alphabetical order, case sensitive
-        cakes!!.sortBy { it.Titel }
+        breads!!.sortBy { it.title }
 
         //notify adapter of changed data set and save
-        val recyclerView = binding.kuchenRecyclerView
+        val recyclerView = binding.additionsRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
         saveData()
-
-        /*//for testing
-        Toast.makeText(activity, "insertRecipe() called!", Toast.LENGTH_SHORT).show()
-        test = 1;
-        binding.textHauptgerichte.text = test.toString()*/
     }
 
     private fun deleteRecipe(recipeId : String, recipeTitle : String) {
 
-        //Toast.makeText(activity, "id: $recipeId", Toast.LENGTH_SHORT).show()
-
         val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
-            for (item in cakes!!) {
+            for (item in breads!!) {
                 if (item.id == recipeId.toInt()) {
-                    Toast.makeText(activity, "delete recipe "+item.Titel, Toast.LENGTH_SHORT).show()
-                    cakes?.remove(item)
+                    Toast.makeText(activity, "Lösche Rezept \"" + item.title + "\"", Toast.LENGTH_SHORT).show()
+                    breads?.remove(item)
                     break
                 }
             }
-            val recyclerView = binding.kuchenRecyclerView
+            val recyclerView = binding.additionsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
             saveData()
         }
