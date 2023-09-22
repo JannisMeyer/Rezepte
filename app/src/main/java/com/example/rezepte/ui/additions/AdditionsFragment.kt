@@ -26,6 +26,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentAdditionsBinding? = null
     private val binding get() = _binding!!
 
+    //for return of edit or add recipe activity
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
@@ -33,6 +34,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     private fun saveData() {
 
+        //if there is no saved data yet, set recipes to hard coded recipes in "data"
         if(breads == null){
             breads = additionsList
         }
@@ -42,6 +44,8 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
         val editor = sharedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(breads)
+
+        //recipe type "additions"
         editor.putString("additions", json)
         editor.apply()
     }
@@ -66,6 +70,8 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
         //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
         loadData()
+
+        //recyclerView has to be informed of possibly changed recipes
         val recyclerView = binding.additionsRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
         showRecipes()
@@ -82,6 +88,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
+        //start addRecipeActivity if button is clicked
         val intent = Intent(activity, AddRecipeActivity::class.java)
         startActivityForResult(intent, addRecipeActivityRequestCode)
     }
@@ -90,6 +97,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
         super.onDestroyView()
 
+        //save data if other fragment is loaded
         saveData()
         _binding = null
     }
@@ -104,6 +112,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
             Toast.makeText(activity, "No saved data! (showRezepte() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
 
+        //supply recyclerView with actual recipe data
         val recyclerView = binding.additionsRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = AdditionsAdapter(recipes, ::deleteRecipe)
@@ -114,12 +123,14 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, intentData)
 
+        //handle return of adding recipe activity
         if (requestCode == addRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
                 val recipeTitle = data.getStringExtra("RECIPE_TITLE")
                 val recipeIngredients = data.getStringExtra("RECIPE_INGREDIENTS")
                 val recipeDescription = data.getStringExtra("RECIPE_DESCRIPTION")
 
+                //insert new recipe
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null) {
                     insertRecipe(recipeTitle, recipeIngredients, recipeDescription)
                 }
@@ -128,6 +139,8 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+
+        //handle return of edit recipe activity ()
         else if (requestCode == editRecipeActivityRequestCode) {
             loadData()
             val recyclerView = binding.additionsRecyclerView
@@ -172,9 +185,12 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     private fun deleteRecipe(recipeId : String, recipeTitle : String) {
 
+        //create assurance of deletion
         val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
+
+            //find recipe to delete by id and remove
             for (item in breads!!) {
                 if (item.id == recipeId.toInt()) {
                     Toast.makeText(activity, "Lösche Rezept \"" + item.title + "\"", Toast.LENGTH_SHORT).show()
@@ -182,6 +198,8 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
                     break
                 }
             }
+
+            //inform recyclerView of updated recipe data
             val recyclerView = binding.additionsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
             saveData()

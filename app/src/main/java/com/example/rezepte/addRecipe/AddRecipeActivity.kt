@@ -13,12 +13,15 @@ class AddRecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddRecipeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
+        //connect this activity with corresponding display
         setContentView(R.layout.activity_add_recipe)
         binding = ActivityAddRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //set onClickListener for when newly created recipe shall be added
         binding.doneButton.setOnClickListener() {
             if (binding.addRecipeTitle.text.isNullOrEmpty() || binding.addRecipeIngredients.text.isNullOrEmpty() || binding.addRecipeDescription.text.isNullOrEmpty()) {
                 Toast.makeText(this, "Feld leer!", Toast.LENGTH_SHORT).show()
@@ -30,6 +33,8 @@ class AddRecipeActivity : AppCompatActivity() {
     }
 
     private fun returnRecipe() {
+
+        //create intent and send newly created recipe along
         val resultIntent = Intent()
 
         val title = binding.addRecipeTitle.text.toString()
@@ -40,8 +45,10 @@ class AddRecipeActivity : AppCompatActivity() {
         resultIntent.putExtra("RECIPE_INGREDIENTS", ingredients)
         resultIntent.putExtra("RECIPE_DESCRIPTION", description)
 
+        //for confirmation by the parent
         setResult(Activity.RESULT_OK, resultIntent)
 
+        //this returns to parent
         finish()
     }
 }

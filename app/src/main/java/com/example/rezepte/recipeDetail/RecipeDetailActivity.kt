@@ -19,17 +19,21 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecipeDetailBinding
 
+    //for onActivityResult-functionality
     private val newRecipeActivityRequestCode = 1
 
+    //for comparison of old and new title for possibly needed resort of recipes
     private lateinit var oldTitle : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
+        //connect this activity with corresponding display
         binding = ActivityRecipeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //get values from intent from which this activity has been started
         val extras = intent.extras
         val recipeTypeGlobal = extras?.getString("TYPE")
         val recipeIdGlobal = extras?.getString("ID")
@@ -37,6 +41,8 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         binding.editButton.setOnClickListener {
             if (recipeTypeGlobal != null && recipeIdGlobal != null) {
+
+                //create intent and send along recipe attributes
                 val intent = Intent(this, EditRecipeActivity::class.java)
                 intent.putExtra("TYPE", recipeTypeGlobal)
                 intent.putExtra("ID", recipeIdGlobal)
@@ -50,6 +56,7 @@ class RecipeDetailActivity : AppCompatActivity() {
             }
         }
 
+        //set data from intent to display
         val recipeTitleView: TextView = findViewById(R.id.recipe_detail_title)
         val recipeIngredientsView: TextView = findViewById(R.id.recipe_detail_ingredients)
         val recipeDescriptionView: TextView = findViewById(R.id.recipe_detail_description)
@@ -61,6 +68,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     private fun loadRecipes(recipeType: String): MutableList<Recipe> {
 
+        //load recipes from json file
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString(recipeType, null)
@@ -70,6 +78,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     private fun saveRecipes(recipes : MutableList<Recipe>, recipeType: String) {
 
+        //save recipes to json file
         val sharedPreferences : SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val gson = Gson()
@@ -84,6 +93,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
         super.onActivityResult(requestCode, resultCode, data)
 
+        //handle return of editing recipe activity
         if (requestCode == newRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.let { extra ->
                 val recipeTitle = extra.getStringExtra("RECIPE_TITLE")
@@ -92,6 +102,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 val recipeType = extra.getStringExtra("RECIPE_TYPE")
                 val recipeId = extra.getStringExtra("RECIPE_ID")
 
+                //add edited recipe attributes to recipes
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null && recipeType != null && recipeId != null) {
                     val recipes : MutableList<Recipe> = loadRecipes(recipeType.toString())
 
@@ -103,10 +114,12 @@ class RecipeDetailActivity : AppCompatActivity() {
                         }
                     }
 
+                    //resort recipes if needed
                     if(recipeTitle != oldTitle) {
                         recipes.sortBy { it.title }
                     }
 
+                    //save edited recipe and return to parent
                     saveRecipes(recipes, recipeType)
                     finish()
                 }

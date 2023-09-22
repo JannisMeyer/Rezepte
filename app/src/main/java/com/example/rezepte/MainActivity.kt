@@ -12,6 +12,9 @@ import com.example.rezepte.ui.cakes.CakesFragment
 import com.example.rezepte.ui.salads.SaladsFragment
 import com.example.rezepte.ui.additions.AdditionsFragment
 
+//TODO: Add explaining comments
+//TODO:
+
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()
     private val breadsFragment = BreadsFragment()
