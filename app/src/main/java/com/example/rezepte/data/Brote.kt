@@ -1,11 +1,9 @@
 package com.example.rezepte.data
 
 import android.app.Application
-import android.content.res.Resources
 
 class Breads: Application() {
     companion object{
-        var test = 0; //for testing
         var brotListe:MutableList<Rezept> = mutableListOf(
             Rezept(
                 id = 1,

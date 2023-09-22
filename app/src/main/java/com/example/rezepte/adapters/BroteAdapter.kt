@@ -28,17 +28,17 @@ class BroteAdapter(private val data: List<Rezept>, val deleteRecipe: (id : Strin
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Rezept = data[position]
-        holder.rezept_titelView.text = item.Titel
+        holder.rezeptTitelView.text = item.Titel
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val context: Context = itemView.context
 
-        var rezept_titelView: TextView = itemView.findViewById(R.id.rezept_title)
+        var rezeptTitelView: TextView = itemView.findViewById(R.id.rezept_title)
 
         init {
-            rezept_titelView.setOnClickListener(this)
-            rezept_titelView.setOnLongClickListener() {
+            rezeptTitelView.setOnClickListener(this)
+            rezeptTitelView.setOnLongClickListener() {
 
                 // For testing
                 //Toast.makeText(itemView.context,"This is a long click",Toast.LENGTH_SHORT).show();
@@ -61,7 +61,7 @@ class BroteAdapter(private val data: List<Rezept>, val deleteRecipe: (id : Strin
                 putString("TITEL", rezept_titel)
                 putString("ZUTATEN", rezept_zutaten)
                 putString("BESCHR", rezept_beschreibung)
-                putString("TYPE", "bread")
+                putString("TYPE", "breads")
             }
             intent.putExtras(extras)
             context.startActivity(intent)

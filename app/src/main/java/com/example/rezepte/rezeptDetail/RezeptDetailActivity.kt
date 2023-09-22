@@ -25,6 +25,8 @@ class RezeptDetailActivity : AppCompatActivity() {
 
     private val newRecipeActivityRequestCode = 1
 
+    private lateinit var oldTitle : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         Toast.makeText(this, "onCreate() from RezeptDetailActivity called", Toast.LENGTH_SHORT).show()
@@ -36,6 +38,7 @@ class RezeptDetailActivity : AppCompatActivity() {
         val extras = intent.extras
         val recipeTypeGlobal = extras?.getString("TYPE")
         val recipeIdGlobal = extras?.getString("ID")
+        oldTitle = extras?.getString("TITEL").toString()
 
         binding.editButton.setOnClickListener {
             if (recipeTypeGlobal != null && recipeIdGlobal != null) {
@@ -100,6 +103,11 @@ class RezeptDetailActivity : AppCompatActivity() {
                             item.Beschreibung = recipeDescription
                         }
                     }
+
+                    if(recipeTitle != oldTitle) {
+                        recipes.sortBy { it.Titel }
+                    }
+
                     saveRecipes(recipes, recipeType)
                     finish()
                 }

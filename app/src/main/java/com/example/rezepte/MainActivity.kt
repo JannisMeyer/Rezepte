@@ -1,7 +1,6 @@
 package com.example.rezepte
 
 import android.os.Bundle
-import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,16 +8,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.rezepte.ui.brot.BrotFragment
 import com.example.rezepte.ui.hauptgerichte.HauptgerichteFragment
-import com.example.rezepte.ui.kuchen.KuchenFragment
-import com.example.rezepte.ui.salate.SalateFragment
-import com.example.rezepte.ui.zusaetze.ZusaetzeFragment
+import com.example.rezepte.ui.kuchen.CakeFragment
+import com.example.rezepte.ui.salate.SaladFragment
+import com.example.rezepte.ui.zusaetze.AdditionsFragment
 
 class MainActivity : AppCompatActivity() {
     private val hauptgerichteFragment = HauptgerichteFragment()
     private val broteFragment = BrotFragment()
-    private val salateFragment = SalateFragment()
-    private val zusaetzeFragment = ZusaetzeFragment()
-    private val kuchenFragment = KuchenFragment()
+    private val salateFragment = SaladFragment()
+    private val zusaetzeFragment = AdditionsFragment()
+    private val kuchenFragment = CakeFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

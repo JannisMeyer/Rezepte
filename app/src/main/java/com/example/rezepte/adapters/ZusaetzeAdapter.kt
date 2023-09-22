@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Rezept
 import com.example.rezepte.rezeptDetail.RezeptDetailActivity
 
-class ZusaetzeAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<ZusaetzeAdapter.ViewHolder>() {
+class AdditionsAdapter(private val data: List<Rezept>, val deleteRecipe: (id : String, title : String) -> Unit) : RecyclerView.Adapter<AdditionsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -28,20 +28,29 @@ class ZusaetzeAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<Zus
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Rezept = data[position]
-        holder.rezept_titelView.text = item.Titel
+        holder.rezeptTitelView.text = item.Titel
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         private val context: Context = itemView.context
 
-        var rezept_titelView: TextView = itemView.findViewById(R.id.rezept_title)
+        var rezeptTitelView: TextView = itemView.findViewById(R.id.rezept_title)
 
         init {
-            rezept_titelView.setOnClickListener(this)
+            rezeptTitelView.setOnClickListener(this)
+            rezeptTitelView.setOnLongClickListener() {
+
+                // For testing
+                //Toast.makeText(itemView.context,"This is a long click",Toast.LENGTH_SHORT).show();
+
+                deleteRecipe(data[absoluteAdapterPosition].id.toString(), data[absoluteAdapterPosition].Titel)
+
+                true
+            }
         }
 
         override fun onClick(v: View?) {
-            val intent = Intent(context, RezeptDetailActivity::class.java)
+            val intent: Intent = Intent(context, RezeptDetailActivity::class.java)
             val rezept_id: Int = data[adapterPosition].id
             val rezept_titel: String = data[adapterPosition].Titel
             val rezept_zutaten: String = data[adapterPosition].Zutaten
@@ -52,6 +61,7 @@ class ZusaetzeAdapter(private val data: List<Rezept>) : RecyclerView.Adapter<Zus
                 putString("TITEL", rezept_titel)
                 putString("ZUTATEN", rezept_zutaten)
                 putString("BESCHR", rezept_beschreibung)
+                putString("TYPE", "additions")
             }
             intent.putExtras(extras)
             context.startActivity(intent)
