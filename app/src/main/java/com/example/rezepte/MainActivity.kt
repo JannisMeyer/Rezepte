@@ -12,8 +12,7 @@ import com.example.rezepte.ui.cakes.CakesFragment
 import com.example.rezepte.ui.salads.SaladsFragment
 import com.example.rezepte.ui.additions.AdditionsFragment
 
-//TODO: Add explaining comments
-//TODO:
+//TODO: add proper limiting of scrollviews in edit, add and detail recipe activity
 
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()

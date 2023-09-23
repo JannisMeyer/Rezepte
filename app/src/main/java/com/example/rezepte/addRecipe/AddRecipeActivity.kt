@@ -34,6 +34,15 @@ class AddRecipeActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+
+        super.onBackPressed()
+
+        //to control the return by pressing the back button of the device
+        setResult(Activity.RESULT_CANCELED, Intent());
+    }
+
     private fun returnRecipe() {
 
         //create intent and send newly created recipe along

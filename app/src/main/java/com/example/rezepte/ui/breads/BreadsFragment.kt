@@ -57,7 +57,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
         breads = gson.fromJson(json, type)
         if(breads == null){
             breads = breadList
-            Toast.makeText(activity, "Loaded data is null! (loadData() in BreadFragment)", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(activity, "Loaded data is null! (loadData() in BreadFragment)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -134,6 +134,11 @@ class BreadsFragment : Fragment(), View.OnClickListener {
             val recyclerView = binding.breadsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
         }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+            //nothing shall happen if child returned by pressing the back button of the device
+            ;
+        }
         else {
             Toast.makeText(activity, "Invalid return of activity! (onActivityResult() in BreadFragment)", Toast.LENGTH_SHORT).show()
         }
@@ -178,7 +183,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
             for (item in breads!!) {
                 if (item.id == recipeId.toInt()) {
-                    Toast.makeText(activity, "Lösche Rezept \"" + item.title + "\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     breads?.remove(item)
                     break
                 }

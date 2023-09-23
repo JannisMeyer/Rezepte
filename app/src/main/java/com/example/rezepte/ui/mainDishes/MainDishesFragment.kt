@@ -53,7 +53,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         mainDishes = gson.fromJson(json, type)
         if(mainDishes == null){
             mainDishes = mainDishesList
-            Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -131,6 +131,11 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
             val recyclerView = binding.mainDishesRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
         }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+            //nothing shall happen if child returned by pressing the back button of the device
+            ;
+        }
         else {
             Toast.makeText(activity, "Invalid return of activity! (onActivityResult() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
         }
@@ -175,7 +180,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
             for (item in mainDishes!!) {
                 if (item.id == recipeId.toInt()) {
-                    Toast.makeText(activity, "Lösche Rezept \"" + item.title + "\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     mainDishes?.remove(item)
                     break
                 }

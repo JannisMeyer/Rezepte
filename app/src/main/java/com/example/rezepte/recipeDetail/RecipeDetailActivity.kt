@@ -128,6 +128,11 @@ class RecipeDetailActivity : AppCompatActivity() {
                 }
             }
         }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+            //nothing shall happen if child returned by pressing the back button of the device
+            ;
+        }
         else {
             Toast.makeText(this, "Invalid return of activity! (onActivityResult() in RecipeDetailActivity)", Toast.LENGTH_SHORT).show()
         }

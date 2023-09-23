@@ -58,9 +58,9 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
         val json = sharedPreferences.getString("additions", null)
         val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
         breads = gson.fromJson(json, type)
-        if(breads == null){ //for testing
+        if(breads == null){
             breads = additionsList
-            Toast.makeText(activity, "Loaded data is null! (loadData() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(activity, "Loaded data is null! (loadData() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -146,6 +146,11 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
             val recyclerView = binding.additionsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
         }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+            //nothing shall happen if child returned by pressing the back button of the device
+            ;
+        }
         else {
             Toast.makeText(activity, "Invalid return of activity! (onActivityResult() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
@@ -193,7 +198,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
             //find recipe to delete by id and remove
             for (item in breads!!) {
                 if (item.id == recipeId.toInt()) {
-                    Toast.makeText(activity, "Lösche Rezept \"" + item.title + "\"", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     breads?.remove(item)
                     break
                 }
