@@ -6,6 +6,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +14,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.MainDishesAdapter
-import com.example.rezepte.data.Recipe
-import com.example.rezepte.data.MainDishes.Companion.mainDishesList
-import com.example.rezepte.databinding.FragmentMainDishesBinding
 import com.example.rezepte.addRecipe.AddRecipeActivity
+import com.example.rezepte.data.MainDishes.Companion.mainDishesList
+import com.example.rezepte.data.Recipe
+import com.example.rezepte.databinding.FragmentMainDishesBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+
 
 class MainDishesFragment : Fragment(), View.OnClickListener {
 
@@ -77,6 +79,11 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         return binding.root
     }
 
+    /*override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState.putInt(COUNT_KEY, count)
+    }*/
+
     override fun onClick(v: View?) {
 
         val intent = Intent(activity, AddRecipeActivity::class.java)
@@ -104,7 +111,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         val recyclerView = binding.mainDishesRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = MainDishesAdapter(recipes, ::deleteRecipe)
-      }
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
