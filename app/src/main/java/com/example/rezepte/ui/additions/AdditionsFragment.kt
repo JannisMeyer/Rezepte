@@ -17,6 +17,7 @@ import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.example.rezepte.data.Additions.Companion.additionsList
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentAdditionsBinding
+import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -34,20 +35,12 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     private fun saveData() {
 
-        //if there is no saved data yet, set recipes to hard coded recipes in "data"
+        //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
         if(breads == null){
             breads = additionsList
         }
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
-            Context.MODE_PRIVATE
-        )
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(breads)
-
-        //recipe type "additions"
-        editor.putString("additions", json)
-        editor.apply()
+        val dbInterface = RecipeDBInterface(this.requireContext())
+        dbInterface.writeToDB(breads!!, "bread")
     }
 
     private fun loadData() {

@@ -12,7 +12,7 @@ import com.example.rezepte.ui.cakes.CakesFragment
 import com.example.rezepte.ui.salads.SaladsFragment
 import com.example.rezepte.ui.additions.AdditionsFragment
 
-//TODO: add proper limiting of scrollviews in edit, add and detail recipe activity
+//TODO: add proper limiting of scroll views in edit, add and detail recipe activity
 //TODO: go to old position in recyclerview after returning from detail recipe
 //TODO: solve warnings
 
