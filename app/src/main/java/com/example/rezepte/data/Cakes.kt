@@ -8,6 +8,7 @@ class Cakes: Application() {
             Recipe(
                 id = 1,
                 title = "Apfelkuchen",
+                type = "cake",
                 ingredients = "6 – 8 Äpfel\n" +
                         "100g Zucker \n" +
                         "2 Eier\n" +
@@ -25,6 +26,7 @@ class Cakes: Application() {
             Recipe(
                 id = 2,
                 title = "Beerentorte",
+                type = "cake",
                 ingredients = "6 Eier\n" +
                         "Prise Salz\n" +
                         "150g Zucker\n" +
@@ -43,6 +45,7 @@ class Cakes: Application() {
             Recipe(
                 id = 3,
                 title = "Browneys",
+                type = "cake",
                 ingredients = "300g Zartbitterschokolade\n" +
                         "200g Apfelmus / 200ml neutrales Öl\n" +
                         "2 Päckchen Vanillezucker\n" +
@@ -58,6 +61,7 @@ class Cakes: Application() {
             Recipe(
                 id = 4,
                 title = "Cookies",
+                type = "cake",
                 ingredients = "150g (brauner) Zucker\n" +
                         "1 Päckchen Vanillezucker\n" +
                         "200g weiche Butter / 160ml neutrales Öl\n" +
@@ -72,6 +76,7 @@ class Cakes: Application() {
             Recipe(
                 id = 5,
                 title = "Donauwellen-Gugelhupf",
+                type = "cake",
                 ingredients = "300g weiche Butter \n" +
                         "1 Päckchen Vanillezucker\n" +
                         "250g Zucker\n" +
@@ -90,6 +95,7 @@ class Cakes: Application() {
             Recipe(
                 id = 6,
                 title = "Eierlikörkuchen",
+                type = "cake",
                 ingredients = "190g Zucker \n" +
                         "1 Pck. Vanillezucker\n" +
                         "4 Eier\n" +
@@ -103,6 +109,7 @@ class Cakes: Application() {
             Recipe(
                 id = 7,
                 title = "Knusprige Haferkekse",
+                type = "cake",
                 ingredients = "120g Haferflocken\n" +
                         "100g Zucker\n" +
                         "2 Eier\n" +
@@ -115,6 +122,7 @@ class Cakes: Application() {
             Recipe(
                 id = 8,
                 title = "Weiche Haferkekse",
+                type = "cake",
                 ingredients = "200g Haferflocken\n" +
                         "120g Mehl\n" +
                         "100g Zucker \n" +
@@ -128,6 +136,7 @@ class Cakes: Application() {
             Recipe(
                 id = 9,
                 title = "Heidelbeer-Muffins",
+                type = "cake",
                 ingredients = "200g Mehl\n" +
                         "60g feine Haferflocken\n" +
                         "2TL Backpulver\n" +
@@ -144,6 +153,7 @@ class Cakes: Application() {
             Recipe(
                 id = 10,
                 title = "Himbeer-Streusel-Käsekuchen",
+                type = "cake",
                 ingredients = "200g weiche Butter \n" +
                         "100g Zucker\n" +
                         "350g Mehl \n" +
@@ -166,6 +176,7 @@ class Cakes: Application() {
             Recipe(
                 id = 11,
                 title = "Karottenkuchen",
+                type = "cake",
                 ingredients = "225g Mehl \n" +
                         "1/2TL Backpulver\n" +
                         "1TL Natron\n" +
@@ -184,6 +195,7 @@ class Cakes: Application() {
             Recipe(
                 id = 12,
                 title = "Kartoffelkuchen",
+                type = "cake",
                 ingredients = "400g gekochte Kartoffeln\n" +
                         "200g Zucker \n" +
                         "4 Eier\n" +
@@ -198,6 +210,7 @@ class Cakes: Application() {
             Recipe(
                 id = 13,
                 title = "Käse-Kirsch-Kuchen",
+                type = "cake",
                 ingredients = "150g weiche Butter\n" +
                         "1 Päckchen Vanillezucker\n" +
                         "200g Zucker\n" +
@@ -212,6 +225,7 @@ class Cakes: Application() {
             Recipe(
                 id = 14,
                 title = "Marmorkuchen",
+                type = "cake",
                 ingredients = "150g Zucker\n" +
                         "175g Butter/ 140 ml neutrales Öl\n" +
                         "Vanillearoma\n" +
@@ -225,6 +239,7 @@ class Cakes: Application() {
             Recipe(
                 id = 15,
                 title = "Pancakes",
+                type = "cake",
                 ingredients = "4 Eier\n" +
                         "Prise Salz\n" +
                         "2 Päckchen Vanillezucker\n" +
@@ -236,6 +251,7 @@ class Cakes: Application() {
             Recipe(
                 id = 16,
                 title = "Rosinenbrot",
+                type = "cake",
                 ingredients = "600g Mehl \n" +
                         "1 Würfel Frischhefe / 14g Trockenhefe\n" +
                         "250ml Milch\n" +
@@ -250,6 +266,7 @@ class Cakes: Application() {
             Recipe(
                 id = 17,
                 title = "Schoko-Bananen-Muffins",
+                type = "cake",
                 ingredients = "200g Mehl \n" +
                         "2TL Backpulver\n" +
                         "0,5Tl Natron\n" +
@@ -265,6 +282,7 @@ class Cakes: Application() {
             Recipe(
                 id = 18,
                 title = "Schoko-Gugelhupf",
+                type = "cake",
                 ingredients = "100g Zartbitterschokolade\n" +
                         "225g Butter \n" +
                         "5 Eier\n" +
@@ -284,6 +302,7 @@ class Cakes: Application() {
             Recipe(
                 id = 19,
                 title = "Schokokuchen",
+                type = "cake",
                 ingredients = "5 Eier\n" +
                         "200g Zucker\n" +
                         "1 Päckchen Vanillezucker\n" +
@@ -297,6 +316,7 @@ class Cakes: Application() {
             Recipe(
                 id = 20,
                 title = "Schokoladen-Muffins",
+                type = "cake",
                 ingredients = "70g weiche Butter\n" +
                         "190g Zucker\n" +
                         "1 Päckchen Vanillezucker\n" +
@@ -313,6 +333,7 @@ class Cakes: Application() {
             Recipe(
                 id = 21,
                 title = "Zimtschnecken",
+                type = "cake",
                 ingredients = "550g Mehl\n" +
                         "65g Zucker\n" +
                         "1TL Salz\n" +
@@ -330,6 +351,7 @@ class Cakes: Application() {
             Recipe(
                 id = 22,
                 title = "Zitronenkuchen",
+                type = "cake",
                 ingredients = "180g Zucker \n" +
                         "1 Pck. Vanillezucker\n" +
                         "4 Eier\n" +
@@ -347,6 +369,7 @@ class Cakes: Application() {
             Recipe(
                 id = 23,
                 title = "Zwetschgen-Datschi",
+                type = "cake",
                 ingredients = "350g Mehl \n" +
                         "50g Zucker\n" +
                         "1 Päckchen Vanillezucker\n" +

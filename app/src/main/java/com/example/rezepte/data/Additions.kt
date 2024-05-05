@@ -8,6 +8,7 @@ class Additions: Application() {
             Recipe(
                 id = 2,
                 title = "Apfelmus",
+                type = "addition",
                 ingredients = "2kg Äpfel\n" +
                         "250ml  Wasser\n" +
                         "2EL Zucker\n" +
@@ -18,6 +19,7 @@ class Additions: Application() {
             Recipe(
                 id = 3,
                 title = "Grünes Pesto",
+                type = "addition",
                 ingredients = "50g Basilikum\n" +
                         "50g Pinienkerne\n" +
                         "(3-4 Knoblauchzehen)\n" +
@@ -29,6 +31,7 @@ class Additions: Application() {
             Recipe(
                 id = 4,
                 title = "Hühnchen-Marinade",
+                type = "addition",
                 ingredients = "1EL Honig\n" +
                         "3EL Olivenöl\n" +
                         "2EL Sojasauce\n" +
@@ -48,6 +51,7 @@ class Additions: Application() {
             Recipe(
                 id = 5,
                 title = "Reis",
+                type = "addition",
                 ingredients = "1,75 Teile Wasser (Gewicht)\n" +
                         "Salz\n" +
                         "1 Teil Reis (Gewicht)",

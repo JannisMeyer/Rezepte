@@ -8,6 +8,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 1,
                 title = "Chicken Tikka Masala",
+                type = "main dish",
                 ingredients = "2 Zwiebeln\n" +
                         "2 Knoblauchzehen\n" +
                         "800g Hühnerbrust\n" +
@@ -27,6 +28,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 3,
                 title = "Bratreis",
+                type = "main dish",
                 ingredients = "2cm IngwerStück\n" +
                         "1 kleine (Frühlings-)Zwiebel\n" +
                         "1 Knoblauchzehe\n" +
@@ -41,6 +43,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 2,
                 title = "Flammkuchen",
+                type = "main dish",
                 ingredients = "200g Mehl \n" +
                         "110ml Wasser \n" +
                         "1EL ÖL\n" +
@@ -54,6 +57,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 4,
                 title = "Kartoffelgratin",
+                type = "main dish",
                 ingredients = "2kg Kartoffeln\n" +
                         "2 Knoblauchzehen\n" +
                         "400ml Sahne\n" +
@@ -66,6 +70,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 5,
                 title = "Kartoffelsuppe mit Einlage",
+                type = "main dish",
                 ingredients = "1kg geschälte Kartoffeln\n" +
                         "4 Karotten\n" +
                         "2 Zwiebeln\n" +
@@ -80,6 +85,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 6,
                 title = "Kartoffelsuppe ohne Einlage",
+                type = "main dish",
                 ingredients = "1kg geschälte Kartoffeln\n" +
                         "4 Karotten\n" +
                         "2 Zwiebeln\n" +
@@ -94,6 +100,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 7,
                 title = "Kichererbsen-Curry",
+                type = "main dish",
                 ingredients = "2 Zwiebeln\n" +
                         "1TL Zucker\n" +
                         "50ml Olivenöl\n" +
@@ -117,6 +124,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 8,
                 title = "Lasagne",
+                type = "main dish",
                 ingredients = "800g Hackfleisch\n" +
                         "2 Zwiebeln\n" +
                         "2 Karotten\n" +
@@ -139,6 +147,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 9,
                 title = "Linseneintopf",
+                type = "main dish",
                 ingredients = "1 Zwiebel\n" +
                         "3EL Olivenöl\n" +
                         "2 Karotten\n" +
@@ -155,6 +164,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 10,
                 title = "Linsensuppe",
+                type = "main dish",
                 ingredients = "2 Zwiebeln\n" +
                         "2 Knoblauchzehen\n" +
                         "3EL Olivenöl\n" +
@@ -173,6 +183,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 11,
                 title = "Pide",
+                type = "main dish",
                 ingredients = "500g Weizenmehl\n" +
                         "4g Trockenhefe\n" +
                         "250ml Wasser \n" +
@@ -194,6 +205,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 12,
                 title = "Sheperds Pie",
+                type = "main dish",
                 ingredients = "800g Kartoffeln\n" +
                         "40g Butter \n" +
                         "250ml Milch\n" +
@@ -212,6 +224,7 @@ class MainDishes: Application() {
             Recipe(
                 id = 13,
                 title = "Thunfisch-Nudeln",
+                type = "main dish",
                 ingredients = "150-200g Nudeln\n" +
                         "1-2 Zwiebeln \n" +
                         "2EL Öl\n" +

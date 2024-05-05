@@ -8,6 +8,7 @@ class Breads: Application() {
             Recipe(
                 id = 1,
                 title = "Baguette",
+                type = "bread",
                 ingredients = "540ml lauwarmes Wasser\n" +
                         "3TL Salz\n" +
                         "2 Prisen Zucker\n" +
@@ -18,6 +19,7 @@ class Breads: Application() {
             Recipe(
                 id = 2,
                 title = "Kastenbrot",
+                type = "bread",
                 ingredients = "500g Mehl (alles außer Weißmehl, evtl. Mischungen)\n" +
                         "130g Kerne\n" +
                         "500ml lauwarmes Wasser\n" +
@@ -30,6 +32,7 @@ class Breads: Application() {
             Recipe(
                 id = 3,
                 title = "Pizzateig",
+                type = "bread",
                 ingredients = "550g Mehl \n" +
                         "2TL Salz\n" +
                         "3g (ein bisschen) Hefe\n" +

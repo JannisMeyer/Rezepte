@@ -8,12 +8,14 @@ class Salads: Application() {
             Recipe(
                 id = 1,
                 title = "Kartoffelsalat",
+                type = "salad",
                 ingredients = "2kg Kartoffeln\n100ml Hühnerbrühe\n2TL Salz\n3EL Essig\n1TL Pfeffer\nevtl. weiteres Gemüse",
                 description = "Kartoffeln schälen und kochen, kleinschneiden und mit allen Zutaten gut verrühren, (Gemüse unterheben), abkühlen und durchziehen lassen"
             ),
             Recipe(
                 id = 2,
                 title = "Tabouleh-Salat",
+                type = "salad",
                 ingredients = "150g Bulgur/Couscous\n" +
                         "4 Tomaten \n" +
                         "1 Gurke\n" +
@@ -27,6 +29,7 @@ class Salads: Application() {
             Recipe(
                 id = 3,
                 title = "Tomaten-Salat",
+                type = "salad",
                 ingredients = "1kg Tomaten\n" +
                         "3 Frühlingszwiebeln\n" +
                         "Basilikum\n" +

@@ -18,7 +18,7 @@ interface AdditionDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAdditionData(recipeEntry: Recipe)
 
-    @Query("SELECT * FROM additions_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data WHERE type = 'addition' ORDER BY title ASC")
     suspend fun getAdditionData(): MutableList<Recipe>
 }
 
@@ -27,7 +27,7 @@ interface BreadDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBreadData(recipeEntry: Recipe)
 
-    @Query("SELECT * FROM bread_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data WHERE type = 'bread' ORDER BY title ASC")
     suspend fun getBreadData(): MutableList<Recipe>
 }
 
@@ -36,7 +36,7 @@ interface CakeDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCakeData(recipeEntry: Recipe)
 
-    @Query("SELECT * FROM cake_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data WHERE type = 'cake' ORDER BY title ASC")
     suspend fun getCakeData(): MutableList<Recipe>
 }
 
@@ -45,7 +45,7 @@ interface MainDishDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMainDishData(recipeEntry: Recipe)
 
-    @Query("SELECT * FROM main_dish_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data WHERE type = 'main dish' ORDER BY title ASC")
     suspend fun getMainDishData(): MutableList<Recipe>
 }
 
@@ -54,7 +54,7 @@ interface SaladDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSaladData(recipeEntry: Recipe)
 
-    @Query("SELECT * FROM salad_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data WHERE type = 'salad' ORDER BY title ASC")
     suspend fun getSaladData(): MutableList<Recipe>
 }
 

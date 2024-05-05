@@ -147,25 +147,8 @@ class CakesFragment : Fragment(), View.OnClickListener {
 
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
-        //find unused identifying number
-        var identification = 0
-        var idFound : Boolean
-        while (true) {
-            idFound = true
-            identification++
-            for(item in cakes!!) {
-                if (item.id == identification) {
-                    idFound = false
-                    break
-                }
-            }
-            if (idFound) {
-                break
-            }
-        }
-
         //create new recipe and add it to the list
-        val newRecipe = Recipe(identification, recipeTitle, recipeIngredients, recipeDescription)
+        val newRecipe = Recipe(type = "cake", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription)
         cakes?.add(newRecipe)
 
         //sort recipes in alphabetical order, case sensitive

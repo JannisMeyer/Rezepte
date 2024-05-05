@@ -29,19 +29,19 @@ class SaladsFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var breads : MutableList<Recipe>? = null
+    private var salads : MutableList<Recipe>? = null
 
     private fun saveData() {
 
-        if(breads == null){
-            breads = saladList
+        if(salads == null){
+            salads = saladList
         }
         val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
             Context.MODE_PRIVATE
         )
         val editor = sharedPreferences.edit()
         val gson = Gson()
-        val json = gson.toJson(breads)
+        val json = gson.toJson(salads)
         editor.putString("salads", json)
         editor.apply()
     }
@@ -54,9 +54,9 @@ class SaladsFragment : Fragment(), View.OnClickListener {
         val gson = Gson()
         val json = sharedPreferences.getString("salads", null)
         val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
-        breads = gson.fromJson(json, type)
-        if(breads == null){
-            breads = saladList
+        salads = gson.fromJson(json, type)
+        if(salads == null){
+            salads = saladList
             //Toast.makeText(activity, "Loaded data is null! (loadData() in SaladsFragment)", Toast.LENGTH_SHORT).show()
         }
     }
@@ -98,8 +98,8 @@ class SaladsFragment : Fragment(), View.OnClickListener {
     private fun showRecipes() {
 
         lateinit var recipes:MutableList<Recipe>
-        if(breads != null){
-            recipes = breads as MutableList<Recipe>
+        if(salads != null){
+            recipes = salads as MutableList<Recipe>
         }
         else{
             recipes = saladList
@@ -147,29 +147,12 @@ class SaladsFragment : Fragment(), View.OnClickListener {
 
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
-        //find unused identifying number
-        var identification = 0
-        var idFound : Boolean
-        while (true) {
-            idFound = true
-            identification++
-            for(item in breads!!) {
-                if (item.id == identification) {
-                    idFound = false
-                    break
-                }
-            }
-            if (idFound) {
-                break
-            }
-        }
-
         //create new recipe and add it to the list
-        val newRecipe = Recipe(identification, recipeTitle, recipeIngredients, recipeDescription)
-        breads?.add(newRecipe)
+        val newRecipe = Recipe(type = "salad", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription)
+        salads?.add(newRecipe)
 
         //sort recipes in alphabetical order, case sensitive
-        breads!!.sortBy { it.title }
+        salads!!.sortBy { it.title }
 
         //notify adapter of changed data set and save
         val recyclerView = binding.saladsRecyclerView
@@ -182,10 +165,10 @@ class SaladsFragment : Fragment(), View.OnClickListener {
         val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
-            for (item in breads!!) {
+            for (item in salads!!) {
                 if (item.id == recipeId.toInt()) {
                     Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
-                    breads?.remove(item)
+                    salads?.remove(item)
                     break
                 }
             }
