@@ -8,9 +8,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rezepte.R
+import com.example.rezepte.data.Additions
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.ActivityRecipeDetailBinding
 import com.example.rezepte.editRecipe.EditRecipeActivity
+import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -68,24 +70,14 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     private fun loadRecipes(recipeType: String): MutableList<Recipe> {
 
-        //load recipes from json file
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
-        val gson = Gson()
-        val json = sharedPreferences.getString(recipeType, null)
-        val type: Type = object : TypeToken<MutableList<Recipe>>() {}.type
-        return gson.fromJson(json, type)
+        val dbInterface = RecipeDBInterface(this)
+        return dbInterface.readFromDB(recipeType)
     }
 
     private fun saveRecipes(recipes : MutableList<Recipe>, recipeType: String) {
 
-        //save recipes to json file
-        val sharedPreferences : SharedPreferences = this.getSharedPreferences("saved_recipes", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(recipes)
-
-        editor.putString(recipeType, json)
-        editor.apply()
+        val dbInterface = RecipeDBInterface(this)
+        dbInterface.writeToDB(recipes, recipeType)
     }
 
     @Deprecated("Deprecated in Java")

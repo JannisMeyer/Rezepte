@@ -2,11 +2,13 @@ package com.example.rezepte.ui.mainDishes
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +17,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.MainDishesAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
+import com.example.rezepte.data.Additions
+import com.example.rezepte.data.MainDishes
 import com.example.rezepte.data.MainDishes.Companion.mainDishesList
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentMainDishesBinding
+import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -35,20 +40,18 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
 
     private fun saveData() {
 
+        Log.d(ContentValues.TAG, "saving data...")
+        //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
         if(mainDishes == null){
             mainDishes = mainDishesList
         }
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes", MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(mainDishes)
-        editor.putString("main dishes", json)
-        editor.apply()
+        val dbInterface = RecipeDBInterface(this.requireContext())
+        dbInterface.writeToDB(mainDishes!!, "main dish")
     }
 
     private fun loadData() {
 
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes", MODE_PRIVATE)
+        /*val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val gson = Gson()
         val json = sharedPreferences.getString("main dishes", null)
         val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
@@ -59,8 +62,11 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         }
         for (item in mainDishes!!) {
             item.type = "main dish"
-        }
+        }*/
+        val dbInterface = RecipeDBInterface(this.requireContext())
+        mainDishes = dbInterface.readFromDB("main dish")
     }
+
 
     override fun onResume() {
 

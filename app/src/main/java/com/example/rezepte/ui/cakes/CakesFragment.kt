@@ -2,10 +2,12 @@ package com.example.rezepte.ui.cakes
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +16,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.CakesAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
+import com.example.rezepte.data.Additions
 import com.example.rezepte.data.Cakes.Companion.cakeList
+import com.example.rezepte.data.MainDishes
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentCakesBinding
+import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -33,17 +38,13 @@ class CakesFragment : Fragment(), View.OnClickListener {
 
     private fun saveData() {
 
+        Log.d(ContentValues.TAG, "saving data...")
+        //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
         if(cakes == null){
-            cakes = cakeList
+            cakes = Additions.additionsList
         }
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
-            Context.MODE_PRIVATE
-        )
-        val editor = sharedPreferences.edit()
-        val gson = Gson()
-        val json = gson.toJson(cakes)
-        editor.putString("cakes", json)
-        editor.apply()
+        val dbInterface = RecipeDBInterface(this.requireContext())
+        dbInterface.writeToDB(cakes!!, "cake")
     }
 
     private fun loadData() {
@@ -55,9 +56,12 @@ class CakesFragment : Fragment(), View.OnClickListener {
         val json = sharedPreferences.getString("cakes", null)
         val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
         cakes = gson.fromJson(json, type)
-        if(cakes == null){ //for testing
-            cakes = cakeList
-            //Toast.makeText(activity, "Loaded data is null! (loadData() in CakesFragment)", Toast.LENGTH_SHORT).show()
+        if(cakes == null){
+            cakes = MainDishes.mainDishesList
+            //Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
+        }
+        for (item in cakes!!) {
+            item.type = "cake"
         }
     }
 

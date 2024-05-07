@@ -58,7 +58,7 @@ class BreadsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : Stri
                 putString("TITLE", recipeTitle)
                 putString("INGREDIENTS", recipeIngredients)
                 putString("DESCRIPTION", recipeDescription)
-                putString("TYPE", "breads")
+                putString("TYPE", "bread")
             }
             intent.putExtras(extras)
             context.startActivity(intent)

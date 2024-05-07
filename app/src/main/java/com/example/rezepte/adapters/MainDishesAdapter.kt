@@ -57,7 +57,7 @@ class MainDishesAdapter(private val data: List<Recipe>, val deleteRecipe: (id : 
                 putString("TITLE", recipeTitle)
                 putString("INGREDIENTS", recipeIngredients)
                 putString("DESCRIPTION", recipeDescription)
-                putString("TYPE", "main dishes")
+                putString("TYPE", "main dish")
             }
             intent.putExtras(extras)
             context.startActivity(intent)

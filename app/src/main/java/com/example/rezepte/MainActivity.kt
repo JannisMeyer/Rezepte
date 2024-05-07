@@ -16,13 +16,13 @@ import com.example.rezepte.ui.salads.SaladsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-//TODO: finish migration from shared preferences to room
+//TODO: finish migration from shared preferences to room -> rework app to use singleton recipe class with all recipes, room accesses only when editing, removing or adding recipe
 //TODO: add proper limiting of scroll views in edit, add and detail recipe activity
 //TODO: go to old position in recyclerview after returning from detail recipe
 //TODO: solve warnings
 
 //Problems:
-// - hang state after going back from detail activity and from editing recipe -> sleep in while-loop fixed that?
+// - hang state after room accesses
 
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()

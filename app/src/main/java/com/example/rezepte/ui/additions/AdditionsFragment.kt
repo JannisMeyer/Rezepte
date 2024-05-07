@@ -48,20 +48,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadData() {
-        /*val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
-            Context.MODE_PRIVATE
-        )
-        val gson = Gson()
-        val json = sharedPreferences.getString("additions", null)
-        val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
-        additions = gson.fromJson(json, type)
-        if(additions == null){
-            additions = additionsList
-            //Toast.makeText(activity, "Loaded data is null! (loadData() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
-        }
-        for (item in additions!!) {
-            item.type = "addition"
-        }*/
+
         val dbInterface = RecipeDBInterface(this.requireContext())
         additions = dbInterface.readFromDB("addition")
     }

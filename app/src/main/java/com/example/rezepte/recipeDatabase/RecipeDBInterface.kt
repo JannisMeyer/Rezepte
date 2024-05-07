@@ -69,8 +69,8 @@ class RecipeDBInterface(private val context: Context) {
         }
 
         while (!dataWritingComplete) { // wait for coroutine to finish, function is synchronous this way
-            Log.d(ContentValues.TAG, ".")
-            ;
+            SystemClock.sleep(100);
+            Log.d(ContentValues.TAG, "dataWritingComplete: $dataWritingComplete")
         }
         Log.d(ContentValues.TAG, "Data writing complete")
     }
@@ -113,9 +113,8 @@ class RecipeDBInterface(private val context: Context) {
         }
 
         while (!dataReadingComplete) { // wait for coroutine to finish, function is synchronous this way
-            SystemClock.sleep(100);
+            //SystemClock.sleep(100);
             Log.d(ContentValues.TAG, "dataReadingComplete: $dataReadingComplete")
-            ;
         }
         Log.d(ContentValues.TAG, "Data reading complete")
         return recipeList

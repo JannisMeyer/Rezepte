@@ -74,7 +74,7 @@ class AdditionsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : S
                 putString("TITLE", recipeTitle)
                 putString("INGREDIENTS", recipeIngredients)
                 putString("DESCRIPTION", recipeDescription)
-                putString("TYPE", "additions")
+                putString("TYPE", "addition")
             }
             intent.putExtras(extras)
             context.startActivity(intent)
