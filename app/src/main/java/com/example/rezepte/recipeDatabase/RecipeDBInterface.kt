@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class RecipeDBInterface(private val context: Context) {
 
-    fun writeToDB(recipeList: List<Recipe>, recipeType : String) {
+    fun writeToDB(recipeList: List<Recipe>) {
 
         Log.d(ContentValues.TAG, "Writing data...")
         var dataWritingComplete = false
@@ -20,51 +20,12 @@ class RecipeDBInterface(private val context: Context) {
             if (recipeList.isEmpty()) {
                 Log.e(ContentValues.TAG, "Recipe list empty!")
             } else {
-                when (recipeType) {
-                    "addition" -> {
-                        Log.d(ContentValues.TAG, "Writing addition list...")
-                        for (item in recipeList) {
-                            DatabaseProvider.getDatabase(context).additionDataDao().insertAdditionData(item)
-                        }
-                        dataWritingComplete = true
-                        Log.d(ContentValues.TAG, "Wrote addition list")
-                    }
-                    "bread" -> {
-                        Log.d(ContentValues.TAG, "Writing bread list...")
-                        for (item in recipeList) {
-                            DatabaseProvider.getDatabase(context).breadDataDao().insertBreadData(item)
-                        }
-                        dataWritingComplete = true
-                        Log.d(ContentValues.TAG, "Wrote bread list")
-                    }
-                    "cake" -> {
-                        Log.d(ContentValues.TAG, "Writing cake list...")
-                        for (item in recipeList) {
-                            DatabaseProvider.getDatabase(context).cakeDataDao().insertCakeData(item)
-                        }
-                        dataWritingComplete = true
-                        Log.d(ContentValues.TAG, "Wrote cake list")
-                    }
-                    "main dish" -> {
-                        Log.d(ContentValues.TAG, "Writing main dish list...")
-                        for (item in recipeList) {
-                            DatabaseProvider.getDatabase(context).mainDishDataDao().insertMainDishData(item)
-                        }
-                        dataWritingComplete = true
-                        Log.d(ContentValues.TAG, "Wrote main dish list")
-                    }
-                    "salad" -> {
-                        Log.d(ContentValues.TAG, "Writing salad list...")
-                        for (item in recipeList) {
-                            DatabaseProvider.getDatabase(context).saladDataDao().insertSaladData(item)
-                        }
-                        dataWritingComplete = true
-                        Log.d(ContentValues.TAG, "Wrote salad list")
-                    }
-                    else -> {
-                        Log.e(ContentValues.TAG, "Invalid recipe type!")
-                    }
+                Log.d(ContentValues.TAG, "Writing addition list...")
+                for (item in recipeList) {
+                    DatabaseProvider.getDatabase(context).additionDataDao().insertAdditionData(item)
                 }
+                dataWritingComplete = true
+                Log.d(ContentValues.TAG, "Wrote addition list")
             }
         }
 
@@ -75,40 +36,16 @@ class RecipeDBInterface(private val context: Context) {
         Log.d(ContentValues.TAG, "Data writing complete")
     }
 
-    fun readFromDB(recipeType : String) : MutableList<Recipe>{
+    fun readFromDB() : MutableList<Recipe>{
 
         var recipeList = mutableListOf<Recipe>()
         var dataReadingComplete = false
 
         CoroutineScope(Dispatchers.IO).launch {
 
-            when (recipeType) {
-                "addition" -> {
-                    recipeList = DatabaseProvider.getDatabase(context).additionDataDao().getAdditionData()
-                    Log.d(ContentValues.TAG, "end db access")
-                    dataReadingComplete = true
-                }
-                "bread" -> {
-                    recipeList = DatabaseProvider.getDatabase(context).breadDataDao().getBreadData()
-                    dataReadingComplete = true
-                }
-                "cake" -> {
-                    recipeList = DatabaseProvider.getDatabase(context).cakeDataDao().getCakeData()
-                    dataReadingComplete = true
-                }
-                "main dish" -> {
-                    recipeList = DatabaseProvider.getDatabase(context).mainDishDataDao().getMainDishData()
-                    dataReadingComplete = true
-                }
-                "salad" -> {
-                    recipeList = DatabaseProvider.getDatabase(context).saladDataDao().getSaladData()
-                    dataReadingComplete = true
-                }
-                else -> {
-                    Log.e(ContentValues.TAG, "Invalid recipe type!")
-                    dataReadingComplete = true
-                }
-            }
+            recipeList = DatabaseProvider.getDatabase(context).additionDataDao().getAdditionData()
+            Log.d(ContentValues.TAG, "end db access")
+            dataReadingComplete = true
             Log.d(ContentValues.TAG, "end coroutine, dataReadingComplete: $dataReadingComplete")
         }
 
