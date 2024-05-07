@@ -2,6 +2,7 @@ package com.example.rezepte.recipeDatabase
 
 import android.content.ContentValues
 import android.content.Context
+import android.os.SystemClock
 import android.util.Log
 import com.example.rezepte.data.Recipe
 import kotlinx.coroutines.CoroutineScope
@@ -12,6 +13,7 @@ class RecipeDBInterface(private val context: Context) {
 
     fun writeToDB(recipeList: List<Recipe>, recipeType : String) {
 
+        Log.d(ContentValues.TAG, "Writing data...")
         var dataWritingComplete = false
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -67,14 +69,15 @@ class RecipeDBInterface(private val context: Context) {
         }
 
         while (!dataWritingComplete) { // wait for coroutine to finish, function is synchronous this way
+            Log.d(ContentValues.TAG, ".")
             ;
         }
         Log.d(ContentValues.TAG, "Data writing complete")
     }
 
-    fun readFromDB(recipeType : String) : List<Recipe>{
+    fun readFromDB(recipeType : String) : MutableList<Recipe>{
 
-        var recipeList = emptyList<Recipe>()
+        var recipeList = mutableListOf<Recipe>()
         var dataReadingComplete = false
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -82,6 +85,7 @@ class RecipeDBInterface(private val context: Context) {
             when (recipeType) {
                 "addition" -> {
                     recipeList = DatabaseProvider.getDatabase(context).additionDataDao().getAdditionData()
+                    Log.d(ContentValues.TAG, "end db access")
                     dataReadingComplete = true
                 }
                 "bread" -> {
@@ -102,11 +106,15 @@ class RecipeDBInterface(private val context: Context) {
                 }
                 else -> {
                     Log.e(ContentValues.TAG, "Invalid recipe type!")
+                    dataReadingComplete = true
                 }
             }
+            Log.d(ContentValues.TAG, "end coroutine, dataReadingComplete: $dataReadingComplete")
         }
 
         while (!dataReadingComplete) { // wait for coroutine to finish, function is synchronous this way
+            SystemClock.sleep(100);
+            Log.d(ContentValues.TAG, "dataReadingComplete: $dataReadingComplete")
             ;
         }
         Log.d(ContentValues.TAG, "Data reading complete")

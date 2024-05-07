@@ -57,6 +57,9 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
             mainDishes = mainDishesList
             //Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
         }
+        for (item in mainDishes!!) {
+            item.type = "main dish"
+        }
     }
 
     override fun onResume() {

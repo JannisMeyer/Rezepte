@@ -2,10 +2,12 @@ package com.example.rezepte.ui.additions
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.example.rezepte.data.Additions.Companion.additionsList
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentAdditionsBinding
+import com.example.rezepte.recipeDatabase.DatabaseProvider
 import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -35,6 +38,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     private fun saveData() {
 
+        Log.d(ContentValues.TAG, "saving data...")
         //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
         if(additions == null){
             additions = additionsList
@@ -44,7 +48,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun loadData() {
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
+        /*val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
             Context.MODE_PRIVATE
         )
         val gson = Gson()
@@ -55,11 +59,17 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
             additions = additionsList
             //Toast.makeText(activity, "Loaded data is null! (loadData() in AdditionsFragment)", Toast.LENGTH_SHORT).show()
         }
+        for (item in additions!!) {
+            item.type = "addition"
+        }*/
+        val dbInterface = RecipeDBInterface(this.requireContext())
+        additions = dbInterface.readFromDB("addition")
     }
 
     override fun onResume() {
 
         super.onResume()
+        Log.d(ContentValues.TAG, "on resume")
 
         //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
         loadData()
@@ -89,6 +99,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
     override fun onDestroyView() {
 
         super.onDestroyView()
+        Log.d(ContentValues.TAG, "on destroy")
 
         //save data if other fragment is loaded
         saveData()
