@@ -2,13 +2,8 @@ package com.example.rezepte.ui.mainDishes
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentValues
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,15 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.MainDishesAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
-import com.example.rezepte.data.Additions
-import com.example.rezepte.data.MainDishes
+import com.example.rezepte.data.LocalRecipes
 import com.example.rezepte.data.MainDishes.Companion.mainDishesList
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentMainDishesBinding
-import com.example.rezepte.recipeDatabase.RecipeDBInterface
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 
 class MainDishesFragment : Fragment(), View.OnClickListener {
@@ -36,18 +26,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var mainDishes : MutableList<Recipe>? = null
-
-    private fun saveData() {
-
-        Log.d(ContentValues.TAG, "saving data...")
-        //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
-        if(mainDishes == null){
-            mainDishes = mainDishesList
-        }
-        val dbInterface = RecipeDBInterface(this.requireContext())
-        dbInterface.writeToDB(mainDishes!!, "main dish")
-    }
+    private var mainDishes = LocalRecipes.getInstance(this.requireContext())?.getMainDishRecipes()
 
     private fun loadData() {
 
@@ -63,8 +42,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         for (item in mainDishes!!) {
             item.type = "main dish"
         }*/
-        val dbInterface = RecipeDBInterface(this.requireContext())
-        mainDishes = dbInterface.readFromDB("main dish")
+        mainDishes = LocalRecipes.getInstance(this.requireContext())?.getMainDishRecipes()
     }
 
 
@@ -103,7 +81,6 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
 
         super.onDestroyView()
 
-        saveData()
         _binding = null
     }
 
@@ -169,10 +146,11 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         //notify adapter of changed data set and save
         val recyclerView = binding.mainDishesRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
-        saveData()
+
+        LocalRecipes.getInstance(this.requireContext())?.writeRecipe(newRecipe, this.requireContext())
     }
 
-    private fun deleteRecipe(recipeId : String, recipeTitle : String) {
+    private fun deleteRecipe(recipeId : Int, recipeTitle : String) {
 
         val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
@@ -181,12 +159,12 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
                 if (item.id == recipeId.toInt()) {
                     Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     mainDishes?.remove(item)
+                    LocalRecipes.getInstance(this.requireContext())?.deleteRecipe(recipeId, this.requireContext())
                     break
                 }
             }
             val recyclerView = binding.mainDishesRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
-            saveData()
         }
         alertDialogBuilder.setNegativeButton("Nein") { _, _ ->
 

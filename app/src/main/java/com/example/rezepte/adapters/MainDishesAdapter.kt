@@ -12,7 +12,7 @@ import com.example.rezepte.R
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.recipeDetail.RecipeDetailActivity
 
-class MainDishesAdapter(private val data: List<Recipe>, val deleteRecipe: (id : String, title : String) -> Unit) : RecyclerView.Adapter<MainDishesAdapter.ViewHolder>() {
+class MainDishesAdapter(private val data: List<Recipe>, val deleteRecipe: (id : Int, title : String) -> Unit) : RecyclerView.Adapter<MainDishesAdapter.ViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -39,7 +39,7 @@ class MainDishesAdapter(private val data: List<Recipe>, val deleteRecipe: (id : 
             recipeTitleView.setOnClickListener(this)
             recipeTitleView.setOnLongClickListener() {
 
-                deleteRecipe(data[absoluteAdapterPosition].id.toString(), data[absoluteAdapterPosition].title)
+                deleteRecipe(data[absoluteAdapterPosition].id, data[absoluteAdapterPosition].title)
 
                 true
             }

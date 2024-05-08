@@ -20,12 +20,12 @@ class RecipeDBInterface(private val context: Context) {
             if (recipeList.isEmpty()) {
                 Log.e(ContentValues.TAG, "Recipe list empty!")
             } else {
-                Log.d(ContentValues.TAG, "Writing addition list...")
+                Log.d(ContentValues.TAG, "Writing list...")
                 for (item in recipeList) {
-                    DatabaseProvider.getDatabase(context).additionDataDao().insertAdditionData(item)
+                    DatabaseProvider.getDatabase(context).dataDao().insertRecipe(item)
                 }
                 dataWritingComplete = true
-                Log.d(ContentValues.TAG, "Wrote addition list")
+                Log.d(ContentValues.TAG, "Wrote list")
             }
         }
 
@@ -43,7 +43,7 @@ class RecipeDBInterface(private val context: Context) {
 
         CoroutineScope(Dispatchers.IO).launch {
 
-            recipeList = DatabaseProvider.getDatabase(context).additionDataDao().getAdditionData()
+            recipeList = DatabaseProvider.getDatabase(context).dataDao().getRecipeData()
             Log.d(ContentValues.TAG, "end db access")
             dataReadingComplete = true
             Log.d(ContentValues.TAG, "end coroutine, dataReadingComplete: $dataReadingComplete")
@@ -55,5 +55,25 @@ class RecipeDBInterface(private val context: Context) {
         }
         Log.d(ContentValues.TAG, "Data reading complete")
         return recipeList
+    }
+
+    fun deleteRecipeFromDB(id : Int) {
+
+        Log.d(ContentValues.TAG, "Writing data...")
+        var deletionComplete = false
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+                Log.d(ContentValues.TAG, "Writing list...")
+                DatabaseProvider.getDatabase(context).dataDao().deleteRecipeFromDB(id)
+                deletionComplete = true
+                Log.d(ContentValues.TAG, "Wrote list")
+        }
+
+        while (!deletionComplete) { // wait for coroutine to finish, function is synchronous this way
+            SystemClock.sleep(100);
+            Log.d(ContentValues.TAG, "deletionComplete: $deletionComplete")
+        }
+        Log.d(ContentValues.TAG, "Deletion complete")
     }
 }

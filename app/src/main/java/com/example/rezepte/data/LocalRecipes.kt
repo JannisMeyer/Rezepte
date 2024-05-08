@@ -4,21 +4,22 @@ import android.content.Context
 import com.example.rezepte.recipeDatabase.RecipeDBInterface
 
 class LocalRecipes {
-    @Volatile
-    private var instance : LocalRecipes? = null
-    private var context: Context? = null
 
-    fun getInstance(contextParam : Context): LocalRecipes? {
+    companion object {
+        @Volatile
+        private var instance : LocalRecipes? = null
 
-        if (instance == null) {
-            synchronized(this) {
-                if (instance == null) {
-                    instance = LocalRecipes()
+        fun getInstance(contextParam : Context): LocalRecipes? {
+
+            if (instance == null) {
+                synchronized(this) {
+                    if (instance == null) {
+                        instance = LocalRecipes()
+                    }
                 }
             }
+            return instance
         }
-        context = contextParam
-        return instance
     }
 
     var localRecipes = mutableListOf<Recipe>()
@@ -27,7 +28,9 @@ class LocalRecipes {
 
         val additionRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            additionRecipes.add(item)
+            if (item.type == "addition") {
+                additionRecipes.add(item)
+            }
         }
         return additionRecipes
     }
@@ -36,7 +39,9 @@ class LocalRecipes {
 
         val breadRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            breadRecipes.add(item)
+            if (item.type == "addition") {
+                breadRecipes.add(item)
+            }
         }
         return breadRecipes
     }
@@ -45,7 +50,9 @@ class LocalRecipes {
 
         val cakeRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            cakeRecipes.add(item)
+            if (item.type == "addition") {
+                cakeRecipes.add(item)
+            }
         }
         return cakeRecipes
     }
@@ -54,7 +61,9 @@ class LocalRecipes {
 
         val mainDishRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            mainDishRecipes.add(item)
+            if (item.type == "addition") {
+                mainDishRecipes.add(item)
+            }
         }
         return mainDishRecipes
     }
@@ -63,20 +72,30 @@ class LocalRecipes {
 
         val saladRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            saladRecipes.add(item)
+            if (item.type == "addition") {
+                saladRecipes.add(item)
+            }
         }
         return saladRecipes
     }
 
-    fun loadRecipeData() {
-        val dbInterface = context?.let { RecipeDBInterface(it) }
-        if (dbInterface != null) {
-            localRecipes = dbInterface.readFromDB()
-        }
+    fun loadAllRecipeData(context : Context) {
+        val dbInterface = RecipeDBInterface(context)
+        localRecipes = dbInterface.readFromDB()
     }
 
-    fun writeRecipeData() {
-        val dbInterface = context?.let { RecipeDBInterface(it) }
-        dbInterface?.writeToDB(localRecipes)
+    fun writeAllRecipeData(context : Context) {
+        val dbInterface = RecipeDBInterface(context)
+        dbInterface.writeToDB(localRecipes)
+    }
+
+    fun writeRecipe(recipe : Recipe, context: Context) {
+        val dbInterface = RecipeDBInterface(context)
+        dbInterface.writeToDB(listOf(recipe))
+    }
+
+    fun deleteRecipe(id: Int, context: Context) {
+        val dbInterface = RecipeDBInterface(context)
+        dbInterface.deleteRecipeFromDB(id)
     }
 }
