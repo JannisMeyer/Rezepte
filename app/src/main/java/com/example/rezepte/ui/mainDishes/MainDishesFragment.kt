@@ -26,7 +26,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var mainDishes = LocalRecipes.getInstance(this.requireContext())?.getMainDishRecipes()
+    private var mainDishes = this.context?.let { LocalRecipes.getInstance(it)?.getMainDishRecipes() }
 
     private fun loadData() {
 

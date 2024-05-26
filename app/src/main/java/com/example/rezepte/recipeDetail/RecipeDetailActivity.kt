@@ -68,16 +68,16 @@ class RecipeDetailActivity : AppCompatActivity() {
         recipeDescriptionView.text = extras?.getString("DESCRIPTION")
     }
 
-    private fun loadRecipes(recipeType: String): MutableList<Recipe> {
+    private fun loadRecipes(): MutableList<Recipe> {
 
         val dbInterface = RecipeDBInterface(this)
-        return dbInterface.readFromDB(recipeType)
+        return dbInterface.readFromDB()
     }
 
-    private fun saveRecipes(recipes : MutableList<Recipe>, recipeType: String) {
+    private fun saveRecipes(recipes : MutableList<Recipe>) {
 
         val dbInterface = RecipeDBInterface(this)
-        dbInterface.writeToDB(recipes, recipeType)
+        dbInterface.writeToDB(recipes)
     }
 
     @Deprecated("Deprecated in Java")
@@ -96,7 +96,7 @@ class RecipeDetailActivity : AppCompatActivity() {
 
                 //add edited recipe attributes to recipes
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null && recipeType != null && recipeId != null) {
-                    val recipes : MutableList<Recipe> = loadRecipes(recipeType.toString())
+                    val recipes : MutableList<Recipe> = loadRecipes()
 
                     for (item in recipes) {
                         if (item.id == recipeId.toInt()) {
@@ -112,7 +112,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                     }
 
                     //save edited recipe and return to parent
-                    saveRecipes(recipes, recipeType)
+                    saveRecipes(recipes)
                     finish()
                 }
                 else {

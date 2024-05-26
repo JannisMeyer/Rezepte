@@ -43,8 +43,6 @@ class BreadsFragment : Fragment(), View.OnClickListener {
         if(breads == null){
             breads = Additions.additionsList
         }
-        val dbInterface = RecipeDBInterface(this.requireContext())
-        dbInterface.writeToDB(breads!!, "bread")
     }
 
     private fun loadData() {

@@ -1,7 +1,9 @@
 package com.example.rezepte.recipeDatabase
 
 import android.content.ClipDescription
+import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import androidx.room.*
 import com.example.rezepte.data.Recipe
 
@@ -13,15 +15,21 @@ abstract class RecipeDatabase : RoomDatabase() {
 @Dao
 interface DataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRecipe(recipeEntry: Recipe)
+    suspend fun insertRecipe(recipeEntry: Recipe) : Long
 
-    @Query("SELECT * FROM recipe_data ORDER BY title ASC")
+    @Query("SELECT * FROM recipe_data ORDER BY type ASC, title ASC")
     suspend fun getRecipeData(): MutableList<Recipe>
 
-    @Query("DELETE FROM recipe_data WHERE id = ':id'")
+    @Query("SELECT * FROM recipe_data WHERE type = 'main dish' ORDER BY title ASC")
+    suspend fun getMainDishesTest(): MutableList<Recipe>
+
+    @Query("DELETE FROM recipe_data WHERE id = :id")
     suspend fun deleteRecipeFromDB(id : Int)
 
-    @Query("UPDATE recipe_data SET title = ':title', ingredients = ':ingredients', description = ':description' WHERE id = ':id'")
+    @Query("DELETE FROM recipe_data")
+    suspend fun clearDB()
+
+    @Query("UPDATE recipe_data SET title = :title, ingredients = :ingredients, description = :description WHERE id = :id")
     suspend fun updateRecipeFromDB(id : Int, title : String, ingredients : String, description : String)
 }
 

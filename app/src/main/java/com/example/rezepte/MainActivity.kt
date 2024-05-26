@@ -1,7 +1,9 @@
 package com.example.rezepte
 
+import android.content.ContentValues
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -9,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.example.rezepte.data.LocalRecipes
 import com.example.rezepte.data.MainDishes.Companion.mainDishesList
 import com.example.rezepte.data.Recipe
+import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.example.rezepte.ui.additions.AdditionsFragment
 import com.example.rezepte.ui.breads.BreadsFragment
 import com.example.rezepte.ui.cakes.CakesFragment
@@ -20,13 +23,13 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 
-//TODO: finish migration from shared preferences to room -> rework app to use singleton recipe class with all recipes, room accesses only when editing, removing or adding recipe
+//TODO: finish migration from shared preferences to room -> rebuild rest of fragments to use room, test adding, deleting and updating
 //TODO: add proper limiting of scroll views in edit, add and detail recipe activity
 //TODO: go to old position in recyclerview after returning from detail recipe
 //TODO: solve warnings
 
 //Problems:
-// - hang state after room accesses
+// - writing to DB doesn't work, select * returns empty list -> autogenerate id does not apply for already set ids (except for 0)
 
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()
@@ -44,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         replaceFragment(mainDishesFragment)
 
+        clearDB()
+        moveFromSharedPreferencesToDB()
         localRecipes?.loadAllRecipeData(this)
 
         val bottomNav: BottomNavigationView = findViewById(R.id.nav_view)
@@ -79,15 +84,59 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreferences : SharedPreferences = getSharedPreferences("saved_recipes", MODE_PRIVATE)
         val gson = Gson()
-        val json = sharedPreferences.getString("main dishes", null)
         val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
-        var mainDishes : MutableList<Recipe> = gson.fromJson(json, type)
-        if(mainDishes == null){
-            mainDishes = mainDishesList
-            //Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
+
+        // migrate main dishes
+        var json = sharedPreferences.getString("main dishes", null)
+        val mainDishes : MutableList<Recipe> = gson.fromJson(json, type)
+        for (item in mainDishes) {
+            item.type = "mainDish"
+            //Log.d(ContentValues.TAG, item.title)
+            localRecipes?.localRecipes?.add(item)
         }
-        for (item in mainDishes!!) {
-            item.type = "main dish"
+
+        // migrate additions
+        json = sharedPreferences.getString("additions", null)
+        val additions : MutableList<Recipe> = gson.fromJson(json, type)
+        for (item in additions) {
+            item.type = "addition"
+            //Log.d(ContentValues.TAG, item.title)
+            localRecipes?.localRecipes?.add(item)
         }
+
+        // migrate breads
+        json = sharedPreferences.getString("breads", null)
+        val breads : MutableList<Recipe> = gson.fromJson(json, type)
+        for (item in breads) {
+            item.type = "bread"
+            //Log.d(ContentValues.TAG, item.title)
+            localRecipes?.localRecipes?.add(item)
+        }
+
+        // migrate cakes
+        json = sharedPreferences.getString("cakes", null)
+        val cakes : MutableList<Recipe> = gson.fromJson(json, type)
+        for (item in cakes) {
+            item.type = "cake"
+            //Log.d(ContentValues.TAG, item.title)
+            localRecipes?.localRecipes?.add(item)
+        }
+
+        // migrate salads
+        json = sharedPreferences.getString("salads", null)
+        val salads : MutableList<Recipe> = gson.fromJson(json, type)
+        for (item in salads) {
+            item.type = "salad"
+            //Log.d(ContentValues.TAG, item.title)
+            localRecipes?.localRecipes?.add(item)
+        }
+
+        localRecipes?.writeAllRecipeData(this)
+    }
+
+    private fun clearDB() {
+
+        val dbInterface = RecipeDBInterface(this)
+        dbInterface.clearDB()
     }
 }

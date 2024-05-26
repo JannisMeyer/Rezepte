@@ -43,14 +43,10 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
         if(additions == null){
             additions = additionsList
         }
-        val dbInterface = RecipeDBInterface(this.requireContext())
-        dbInterface.writeToDB(additions!!, "addition")
     }
 
     private fun loadData() {
 
-        val dbInterface = RecipeDBInterface(this.requireContext())
-        additions = dbInterface.readFromDB("addition")
     }
 
     override fun onResume() {

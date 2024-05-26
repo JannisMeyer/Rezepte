@@ -1,6 +1,8 @@
 package com.example.rezepte.data
 
+import android.content.ContentValues
 import android.content.Context
+import android.util.Log
 import com.example.rezepte.recipeDatabase.RecipeDBInterface
 
 class LocalRecipes {
@@ -39,7 +41,7 @@ class LocalRecipes {
 
         val breadRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            if (item.type == "addition") {
+            if (item.type == "bread") {
                 breadRecipes.add(item)
             }
         }
@@ -50,7 +52,7 @@ class LocalRecipes {
 
         val cakeRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            if (item.type == "addition") {
+            if (item.type == "cake") {
                 cakeRecipes.add(item)
             }
         }
@@ -61,7 +63,8 @@ class LocalRecipes {
 
         val mainDishRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            if (item.type == "addition") {
+            if (item.type == "mainDish") {
+                //Log.d(ContentValues.TAG, "main dish: "+item.title)
                 mainDishRecipes.add(item)
             }
         }
@@ -72,7 +75,7 @@ class LocalRecipes {
 
         val saladRecipes = mutableListOf<Recipe>()
         for (item in localRecipes) {
-            if (item.type == "addition") {
+            if (item.type == "salad") {
                 saladRecipes.add(item)
             }
         }
@@ -86,6 +89,9 @@ class LocalRecipes {
 
     fun writeAllRecipeData(context : Context) {
         val dbInterface = RecipeDBInterface(context)
+        for (item in localRecipes) {
+            Log.d(ContentValues.TAG, "local recipe: "+item.title)
+        }
         dbInterface.writeToDB(localRecipes)
     }
 
