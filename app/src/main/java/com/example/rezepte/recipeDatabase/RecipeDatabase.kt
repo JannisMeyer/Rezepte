@@ -14,7 +14,7 @@ abstract class RecipeDatabase : RoomDatabase() {
 
 @Dao
 interface DataDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.NONE)
     suspend fun insertRecipe(recipeEntry: Recipe) : Long
 
     @Query("SELECT * FROM recipe_data ORDER BY type ASC, title ASC")

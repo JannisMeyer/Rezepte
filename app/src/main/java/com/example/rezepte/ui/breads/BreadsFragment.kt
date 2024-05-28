@@ -3,9 +3,7 @@ package com.example.rezepte.ui.breads
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,13 +16,9 @@ import com.example.rezepte.adapters.BreadsAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.example.rezepte.data.Additions
 import com.example.rezepte.data.Breads.Companion.breadList
-import com.example.rezepte.data.MainDishes
+import com.example.rezepte.data.LocalRecipes
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentBreadsBinding
-import com.example.rezepte.recipeDatabase.RecipeDBInterface
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 class BreadsFragment : Fragment(), View.OnClickListener {
 
@@ -47,7 +41,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
 
     private fun loadData() {
 
-        val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
+       /* val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
             Context.MODE_PRIVATE
         )
         val gson = Gson()
@@ -60,7 +54,8 @@ class BreadsFragment : Fragment(), View.OnClickListener {
         }
         for (item in breads!!) {
             item.type = "bread"
-        }
+        }*/
+        breads = LocalRecipes.getInstance()?.getBreadRecipes()
     }
 
     override fun onResume() {

@@ -3,9 +3,7 @@ package com.example.rezepte.ui.additions
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,13 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rezepte.adapters.AdditionsAdapter
 import com.example.rezepte.addRecipe.AddRecipeActivity
 import com.example.rezepte.data.Additions.Companion.additionsList
+import com.example.rezepte.data.LocalRecipes
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.FragmentAdditionsBinding
-import com.example.rezepte.recipeDatabase.DatabaseProvider
-import com.example.rezepte.recipeDatabase.RecipeDBInterface
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.lang.reflect.Type
 
 class AdditionsFragment : Fragment(), View.OnClickListener {
 
@@ -47,6 +41,7 @@ class AdditionsFragment : Fragment(), View.OnClickListener {
 
     private fun loadData() {
 
+        additions = LocalRecipes.getInstance()?.getAdditionRecipes()
     }
 
     override fun onResume() {

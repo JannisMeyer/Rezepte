@@ -26,7 +26,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var mainDishes = this.context?.let { LocalRecipes.getInstance(it)?.getMainDishRecipes() }
+    private var mainDishes = this.context?.let { LocalRecipes.getInstance()?.getMainDishRecipes() }
 
     private fun loadData() {
 
@@ -42,7 +42,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         for (item in mainDishes!!) {
             item.type = "main dish"
         }*/
-        mainDishes = LocalRecipes.getInstance(this.requireContext())?.getMainDishRecipes()
+        mainDishes = LocalRecipes.getInstance()?.getMainDishRecipes()
     }
 
 
@@ -50,7 +50,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
 
         super.onResume()
 
-        //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
+        //to show updated recipe from returned EditRecipeActivity (not optimal, consider to move editing to this fragment)
         loadData()
         val recyclerView = binding.mainDishesRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
@@ -137,8 +137,10 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
         //create new recipe and add it to the list
-        val newRecipe = Recipe(type = "main dish", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription)
-        mainDishes?.add(newRecipe)
+        val newRecipe = LocalRecipes.getInstance()?.let { Recipe(id = it.findId(), type = "mainDish", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription) }
+        if (newRecipe != null) {
+            mainDishes?.add(newRecipe)
+        }
 
         //sort recipes in alphabetical order, case sensitive
         mainDishes!!.sortBy { it.title }
@@ -147,7 +149,9 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         val recyclerView = binding.mainDishesRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
 
-        LocalRecipes.getInstance(this.requireContext())?.writeRecipe(newRecipe, this.requireContext())
+        if (newRecipe != null) {
+            LocalRecipes.getInstance()?.writeRecipe(newRecipe, this.requireContext())
+        }
     }
 
     private fun deleteRecipe(recipeId : Int, recipeTitle : String) {
@@ -156,10 +160,10 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
             for (item in mainDishes!!) {
-                if (item.id == recipeId.toInt()) {
+                if (item.id == recipeId) {
                     Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     mainDishes?.remove(item)
-                    LocalRecipes.getInstance(this.requireContext())?.deleteRecipe(recipeId, this.requireContext())
+                    LocalRecipes.getInstance()?.deleteRecipe(recipeId, this.requireContext())
                     break
                 }
             }

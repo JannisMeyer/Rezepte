@@ -11,7 +11,7 @@ class LocalRecipes {
         @Volatile
         private var instance : LocalRecipes? = null
 
-        fun getInstance(contextParam : Context): LocalRecipes? {
+        fun getInstance(): LocalRecipes? {
 
             if (instance == null) {
                 synchronized(this) {
@@ -103,5 +103,17 @@ class LocalRecipes {
     fun deleteRecipe(id: Int, context: Context) {
         val dbInterface = RecipeDBInterface(context)
         dbInterface.deleteRecipeFromDB(id)
+    }
+
+    fun findId() : Int {
+        var id = 1
+        for (item in localRecipes) {
+            if (item.id == id) {
+                id++
+            } else {
+                break
+            }
+        }
+        return id
     }
 }

@@ -1,15 +1,12 @@
 package com.example.rezepte
 
-import android.content.ContentValues
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.rezepte.data.LocalRecipes
-import com.example.rezepte.data.MainDishes.Companion.mainDishesList
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.recipeDatabase.RecipeDBInterface
 import com.example.rezepte.ui.additions.AdditionsFragment
@@ -29,7 +26,7 @@ import java.lang.reflect.Type
 //TODO: solve warnings
 
 //Problems:
-// - writing to DB doesn't work, select * returns empty list -> autogenerate id does not apply for already set ids (except for 0)
+// - autoGenerate = true always sets id = 1 for new recipes
 
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()
@@ -38,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private val additionsFragment = AdditionsFragment()
     private val cakesFragment = CakesFragment()
 
-    var localRecipes = LocalRecipes.getInstance(this)
+    var localRecipes = LocalRecipes.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -91,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         val mainDishes : MutableList<Recipe> = gson.fromJson(json, type)
         for (item in mainDishes) {
             item.type = "mainDish"
+            item.id = localRecipes?.findId()!!
             //Log.d(ContentValues.TAG, item.title)
             localRecipes?.localRecipes?.add(item)
         }
@@ -100,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         val additions : MutableList<Recipe> = gson.fromJson(json, type)
         for (item in additions) {
             item.type = "addition"
+            item.id = localRecipes?.findId()!!
             //Log.d(ContentValues.TAG, item.title)
             localRecipes?.localRecipes?.add(item)
         }
@@ -109,6 +108,7 @@ class MainActivity : AppCompatActivity() {
         val breads : MutableList<Recipe> = gson.fromJson(json, type)
         for (item in breads) {
             item.type = "bread"
+            item.id = localRecipes?.findId()!!
             //Log.d(ContentValues.TAG, item.title)
             localRecipes?.localRecipes?.add(item)
         }
@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         val cakes : MutableList<Recipe> = gson.fromJson(json, type)
         for (item in cakes) {
             item.type = "cake"
+            item.id = localRecipes?.findId()!!
             //Log.d(ContentValues.TAG, item.title)
             localRecipes?.localRecipes?.add(item)
         }
@@ -127,6 +128,7 @@ class MainActivity : AppCompatActivity() {
         val salads : MutableList<Recipe> = gson.fromJson(json, type)
         for (item in salads) {
             item.type = "salad"
+            item.id = localRecipes?.findId()!!
             //Log.d(ContentValues.TAG, item.title)
             localRecipes?.localRecipes?.add(item)
         }

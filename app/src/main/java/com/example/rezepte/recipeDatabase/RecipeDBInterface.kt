@@ -7,7 +7,6 @@ import android.util.Log
 import com.example.rezepte.data.Recipe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class RecipeDBInterface(private val context: Context) {
