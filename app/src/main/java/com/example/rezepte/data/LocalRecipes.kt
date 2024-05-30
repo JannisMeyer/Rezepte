@@ -106,14 +106,25 @@ class LocalRecipes {
     }
 
     fun findId() : Int {
-        var id = 1
-        for (item in localRecipes) {
-            if (item.id == id) {
-                id++
-            } else {
+
+        Log.d(ContentValues.TAG, "entering findId()...")
+        var id = 0
+        var foundId : Boolean
+        while (true) {
+            foundId = true
+            id++
+            for (item in localRecipes) {
+                if (item.id == id) {
+                    Log.d(ContentValues.TAG, "id not valid: : ${item.id}, ${item.title}")
+                    foundId = false
+                    break
+                }
+            }
+            if (foundId) {
                 break
             }
         }
+        Log.d(ContentValues.TAG, "found id: : $id")
         return id
     }
 }

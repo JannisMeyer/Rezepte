@@ -21,16 +21,10 @@ class RecipeDBInterface(private val context: Context) {
                 //Log.e(ContentValues.TAG, "Recipe list empty!")
             } else {
                 //Log.d(ContentValues.TAG, "Writing list...")
-                val DBPath = DatabaseProvider.getDatabase(context).openHelper.writableDatabase.path
-                Log.d(ContentValues.TAG, "DB path for writing: $DBPath")
-                var ID = 1
+                val dbPath = DatabaseProvider.getDatabase(context).openHelper.writableDatabase.path
+                Log.d(ContentValues.TAG, "DB path for writing: $dbPath")
                 for (item in recipeList) {
-                    item.id = ID
-                    ID++
-                    val id = DatabaseProvider.getDatabase(context).dataDao().insertRecipe(item)
-                    //SystemClock.sleep(100)
-                    Log.d(ContentValues.TAG, "row id of inserted item: $id")
-                    //Log.d(ContentValues.TAG, "id of inserted item: ${item.id}\n")
+                    DatabaseProvider.getDatabase(context).dataDao().insertRecipe(item)
                 }
                 dataWritingComplete = true
                 Log.d(ContentValues.TAG, "Wrote list")
@@ -66,7 +60,7 @@ class RecipeDBInterface(private val context: Context) {
         }
         Log.d(ContentValues.TAG, "Data reading complete")
         for (item in recipeList) {
-            Log.d(ContentValues.TAG, "Read: "+item.title+", type: "+item.type)
+            Log.d(ContentValues.TAG, "Read: "+item.title+", id: "+item.id)
         }
         return recipeList
     }

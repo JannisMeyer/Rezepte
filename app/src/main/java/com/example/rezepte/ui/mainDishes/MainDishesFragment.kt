@@ -26,7 +26,9 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var mainDishes = this.context?.let { LocalRecipes.getInstance()?.getMainDishRecipes() }
+    private var localRecipes = LocalRecipes.getInstance()
+
+    private var mainDishes = this.context?.let { localRecipes?.getMainDishRecipes() }
 
     private fun loadData() {
 
@@ -42,7 +44,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
         for (item in mainDishes!!) {
             item.type = "main dish"
         }*/
-        mainDishes = LocalRecipes.getInstance()?.getMainDishRecipes()
+        mainDishes = localRecipes?.getMainDishRecipes()
     }
 
 
@@ -137,21 +139,22 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
         //create new recipe and add it to the list
-        val newRecipe = LocalRecipes.getInstance()?.let { Recipe(id = it.findId(), type = "mainDish", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription) }
+        val newRecipe = localRecipes?.let { Recipe(id = it.findId(), type = "mainDish", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription) }
         if (newRecipe != null) {
             mainDishes?.add(newRecipe)
+
+            //sort recipes in alphabetical order, case sensitive
+            mainDishes!!.sortBy { it.title }
+
+            //notify adapter of changed data set and save
+            val recyclerView = binding.mainDishesRecyclerView
+            recyclerView.adapter?.notifyDataSetChanged()
+
+            localRecipes?.writeRecipe(newRecipe, this.requireContext())
+            localRecipes?.localRecipes?.add(newRecipe)
         }
 
-        //sort recipes in alphabetical order, case sensitive
-        mainDishes!!.sortBy { it.title }
 
-        //notify adapter of changed data set and save
-        val recyclerView = binding.mainDishesRecyclerView
-        recyclerView.adapter?.notifyDataSetChanged()
-
-        if (newRecipe != null) {
-            LocalRecipes.getInstance()?.writeRecipe(newRecipe, this.requireContext())
-        }
     }
 
     private fun deleteRecipe(recipeId : Int, recipeTitle : String) {
@@ -163,7 +166,7 @@ class MainDishesFragment : Fragment(), View.OnClickListener {
                 if (item.id == recipeId) {
                     Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     mainDishes?.remove(item)
-                    LocalRecipes.getInstance()?.deleteRecipe(recipeId, this.requireContext())
+                    localRecipes?.deleteRecipe(recipeId, this.requireContext())
                     break
                 }
             }

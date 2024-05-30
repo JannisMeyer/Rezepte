@@ -7,14 +7,14 @@ import android.util.Log
 import androidx.room.*
 import com.example.rezepte.data.Recipe
 
-@Database(entities = [Recipe::class], version = 1)
+@Database(entities = [Recipe::class], version = 2)
 abstract class RecipeDatabase : RoomDatabase() {
     abstract fun dataDao(): DataDao
 }
 
 @Dao
 interface DataDao {
-    @Insert(onConflict = OnConflictStrategy.NONE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecipe(recipeEntry: Recipe) : Long
 
     @Query("SELECT * FROM recipe_data ORDER BY type ASC, title ASC")

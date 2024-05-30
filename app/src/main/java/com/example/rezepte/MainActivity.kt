@@ -20,13 +20,13 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 
-//TODO: finish migration from shared preferences to room -> rebuild rest of fragments to use room, test adding, deleting and updating
+//TODO: finish migration from shared preferences to room -> rebuild rest of fragments to use room, implement updating
 //TODO: add proper limiting of scroll views in edit, add and detail recipe activity
 //TODO: go to old position in recyclerview after returning from detail recipe
 //TODO: solve warnings
 
 //Problems:
-// - autoGenerate = true always sets id = 1 for new recipes
+//
 
 class MainActivity : AppCompatActivity() {
     private val mainDishesFragment = MainDishesFragment()
@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         replaceFragment(mainDishesFragment)
 
-        clearDB()
-        moveFromSharedPreferencesToDB()
+        //clearDB()
+        //moveFromSharedPreferencesToDB()
         localRecipes?.loadAllRecipeData(this)
 
         val bottomNav: BottomNavigationView = findViewById(R.id.nav_view)
