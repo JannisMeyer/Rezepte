@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.rezepte.R
 import com.example.rezepte.data.Additions
+import com.example.rezepte.data.LocalRecipes
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.databinding.ActivityRecipeDetailBinding
 import com.example.rezepte.editRecipe.EditRecipeActivity
@@ -26,6 +27,8 @@ class RecipeDetailActivity : AppCompatActivity() {
 
     //for comparison of old and new title for possibly needed resort of recipes
     private lateinit var oldTitle : String
+
+    private var localRecipes = LocalRecipes.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -98,7 +101,7 @@ class RecipeDetailActivity : AppCompatActivity() {
                 if (recipeTitle != null && recipeIngredients != null && recipeDescription != null && recipeType != null && recipeId != null) {
                     val recipes : MutableList<Recipe> = loadRecipes()
 
-                    for (item in recipes) {
+                    for (item in localRecipes?.localRecipes!!) {
                         if (item.id == recipeId.toInt()) {
                             item.title = recipeTitle
                             item.ingredients = recipeIngredients
@@ -106,13 +109,8 @@ class RecipeDetailActivity : AppCompatActivity() {
                         }
                     }
 
-                    //resort recipes if needed
-                    if(recipeTitle != oldTitle) {
-                        recipes.sortBy { it.title }
-                    }
-
                     //save edited recipe and return to parent
-                    saveRecipes(recipes)
+                    localRecipes?.writeAllRecipeData(this)
                     finish()
                 }
                 else {

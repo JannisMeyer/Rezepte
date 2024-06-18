@@ -68,6 +68,7 @@ class LocalRecipes {
                 mainDishRecipes.add(item)
             }
         }
+        mainDishRecipes.sortBy { it.title }
         return mainDishRecipes
     }
 
