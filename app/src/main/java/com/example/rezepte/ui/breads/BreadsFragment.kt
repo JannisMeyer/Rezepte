@@ -28,34 +28,13 @@ class BreadsFragment : Fragment(), View.OnClickListener {
     private val addRecipeActivityRequestCode = 1
     private val editRecipeActivityRequestCode = 2
 
-    private var breads : MutableList<Recipe>? = null
+    private var localRecipes = LocalRecipes.getInstance()
 
-    private fun saveData() {
-
-        Log.d(ContentValues.TAG, "saving data...")
-        //if there is no saved data yet, set recipes to hard coded recipes in "data"-folder
-        if(breads == null){
-            breads = Additions.additionsList
-        }
-    }
+    private var breads = this.context?.let { localRecipes?.getBreadRecipes() }
 
     private fun loadData() {
 
-       /* val sharedPreferences : SharedPreferences = activity!!.getSharedPreferences("saved_recipes",
-            Context.MODE_PRIVATE
-        )
-        val gson = Gson()
-        val json = sharedPreferences.getString("breads", null)
-        val type : Type = object : TypeToken<MutableList<Recipe>>() {}.type
-        breads = gson.fromJson(json, type)
-        if(breads == null){
-            breads = MainDishes.mainDishesList
-            //Toast.makeText(activity, "Loaded data is null! (loadData() in MainDishesFragment)", Toast.LENGTH_SHORT).show()
-        }
-        for (item in breads!!) {
-            item.type = "bread"
-        }*/
-        breads = LocalRecipes.getInstance()?.getBreadRecipes()
+        breads = localRecipes?.getBreadRecipes()
     }
 
     override fun onResume() {
@@ -64,6 +43,8 @@ class BreadsFragment : Fragment(), View.OnClickListener {
 
         //to show updated recipe from returned EditRecipeActivity (not optimal, considering to move editing to this fragment)
         loadData()
+
+        //recyclerView has to be informed of possibly changed recipes
         val recyclerView = binding.breadsRecyclerView
         recyclerView.adapter?.notifyDataSetChanged()
         showRecipes()
@@ -80,6 +61,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
+        //start addRecipeActivity if button is clicked
         val intent = Intent(activity, AddRecipeActivity::class.java)
         startActivityForResult(intent, addRecipeActivityRequestCode)
     }
@@ -87,7 +69,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
     override fun onDestroyView() {
 
         super.onDestroyView()
-        saveData()
+
         _binding = null
     }
 
@@ -112,6 +94,7 @@ class BreadsFragment : Fragment(), View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, intentData)
 
+        //handle return of adding recipe activity
         if (requestCode == addRecipeActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.let { data ->
                 val recipeTitle = data.getStringExtra("RECIPE_TITLE")
@@ -126,6 +109,8 @@ class BreadsFragment : Fragment(), View.OnClickListener {
                 }
             }
         }
+
+        //handle return of edit recipe activity
         else if (requestCode == editRecipeActivityRequestCode) {
             loadData()
             val recyclerView = binding.breadsRecyclerView
@@ -144,33 +129,37 @@ class BreadsFragment : Fragment(), View.OnClickListener {
     private fun insertRecipe(recipeTitle: String, recipeIngredients: String, recipeDescription: String) {
 
         //create new recipe and add it to the list
-        val newRecipe = Recipe(type = "bread", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription)
-        breads?.add(newRecipe)
+        val newRecipe = localRecipes?.let { Recipe(id = it.findId(), type = "bread", title = recipeTitle, ingredients = recipeIngredients, description = recipeDescription) }
+        if (newRecipe != null) {
 
-        //sort recipes in alphabetical order, case sensitive
-        breads!!.sortBy { it.title }
+            // add recipe
+            localRecipes?.writeRecipe(newRecipe, this.requireContext())
+            loadData()
 
-        //notify adapter of changed data set and save
-        val recyclerView = binding.breadsRecyclerView
-        recyclerView.adapter?.notifyDataSetChanged()
-        saveData()
+            //notify adapter of changed data set and save
+            val recyclerView = binding.breadsRecyclerView
+            recyclerView.adapter?.notifyDataSetChanged()
+        }
     }
 
-    private fun deleteRecipe(recipeId : String, recipeTitle : String) {
+    private fun deleteRecipe(recipeId : Int, recipeTitle : String) {
 
+        //create assurance of deletion
         val alertDialogBuilder = AlertDialog.Builder(activity)
         alertDialogBuilder.setMessage("Rezept \"$recipeTitle\" löschen?")
         alertDialogBuilder.setPositiveButton("Ja") { _, _ ->
+
+            //find recipe to delete by id and remove
             for (item in breads!!) {
-                if (item.id == recipeId.toInt()) {
+                if (item.id == recipeId) {
                     Toast.makeText(activity, "Rezept \"" + item.title + "\" gelöscht", Toast.LENGTH_SHORT).show()
                     breads?.remove(item)
+                    localRecipes?.deleteRecipe(recipeId, this.requireContext())
                     break
                 }
             }
             val recyclerView = binding.breadsRecyclerView
             recyclerView.adapter?.notifyDataSetChanged()
-            saveData()
         }
         alertDialogBuilder.setNegativeButton("Nein") { _, _ ->
 

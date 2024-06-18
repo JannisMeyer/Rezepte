@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.recipeDetail.RecipeDetailActivity
 
-class SaladsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : String, title : String) -> Unit) : RecyclerView.Adapter<SaladsAdapter.ViewHolder>() {
+class SaladsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : Int, title : String) -> Unit) : RecyclerView.Adapter<SaladsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -40,7 +40,7 @@ class SaladsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : Stri
             recipeTitleView.setOnClickListener(this)
             recipeTitleView.setOnLongClickListener() {
 
-                deleteRecipe(data[absoluteAdapterPosition].id.toString(), data[absoluteAdapterPosition].title)
+                deleteRecipe(data[absoluteAdapterPosition].id, data[absoluteAdapterPosition].title)
 
                 true
             }

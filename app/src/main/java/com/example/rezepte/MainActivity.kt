@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
 
-//TODO: finish migration from shared preferences to room -> rebuild rest of fragments to use room, implement updating
+//TODO: use strings in intents etc. with defines
 //TODO: add proper limiting of scroll views in edit, add and detail recipe activity
 //TODO: go to old position in recyclerview after returning from detail recipe
 //TODO: solve warnings

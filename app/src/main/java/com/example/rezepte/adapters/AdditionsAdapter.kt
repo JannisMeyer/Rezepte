@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rezepte.data.Recipe
 import com.example.rezepte.recipeDetail.RecipeDetailActivity
 
-class AdditionsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : String, title : String) -> Unit) : RecyclerView.Adapter<AdditionsAdapter.ViewHolder>() {
+class AdditionsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : Int, title : String) -> Unit) : RecyclerView.Adapter<AdditionsAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -52,7 +52,7 @@ class AdditionsAdapter(private val data: List<Recipe>, val deleteRecipe: (id : S
             //special onClickListener
             recipeTitleView.setOnLongClickListener() {
 
-                deleteRecipe(data[absoluteAdapterPosition].id.toString(), data[absoluteAdapterPosition].title)
+                deleteRecipe(data[absoluteAdapterPosition].id, data[absoluteAdapterPosition].title)
 
                 //true has to be returned
                 true

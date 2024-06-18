@@ -34,6 +34,7 @@ class LocalRecipes {
                 additionRecipes.add(item)
             }
         }
+        additionRecipes.sortBy { it.title }
         return additionRecipes
     }
 
@@ -45,6 +46,7 @@ class LocalRecipes {
                 breadRecipes.add(item)
             }
         }
+        breadRecipes.sortBy { it.title }
         return breadRecipes
     }
 
@@ -56,6 +58,7 @@ class LocalRecipes {
                 cakeRecipes.add(item)
             }
         }
+        cakeRecipes.sortBy { it.title }
         return cakeRecipes
     }
 
@@ -80,15 +83,18 @@ class LocalRecipes {
                 saladRecipes.add(item)
             }
         }
+        saladRecipes.sortBy { it.title }
         return saladRecipes
     }
 
     fun loadAllRecipeData(context : Context) {
+
         val dbInterface = RecipeDBInterface(context)
         localRecipes = dbInterface.readFromDB()
     }
 
     fun writeAllRecipeData(context : Context) {
+
         val dbInterface = RecipeDBInterface(context)
         for (item in localRecipes) {
             Log.d(ContentValues.TAG, "local recipe: "+item.title)
@@ -97,11 +103,19 @@ class LocalRecipes {
     }
 
     fun writeRecipe(recipe : Recipe, context: Context) {
+
+        localRecipes.add(recipe)
         val dbInterface = RecipeDBInterface(context)
         dbInterface.writeToDB(listOf(recipe))
     }
 
     fun deleteRecipe(id: Int, context: Context) {
+
+        for (recipe in localRecipes) {
+            if (recipe.id == id) {
+                localRecipes.remove(recipe)
+            }
+        }
         val dbInterface = RecipeDBInterface(context)
         dbInterface.deleteRecipeFromDB(id)
     }

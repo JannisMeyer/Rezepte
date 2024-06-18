@@ -46,6 +46,8 @@ class MainDishesAdapter(private val data: List<Recipe>, val deleteRecipe: (id : 
         }
 
         override fun onClick(v: View?) {
+
+            //create intent and send recipe attributes of clicked recipe along
             val intent = Intent(context, RecipeDetailActivity::class.java)
             val recipeId: Int = data[adapterPosition].id
             val recipeTitle: String = data[adapterPosition].title
